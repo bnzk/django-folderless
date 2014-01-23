@@ -1,3 +1,6 @@
+django-folderless
+*****************
+
 straightforward and simple folderless media management for django
 
 nevertheless, heavily experienced by django-filer, and to some extent, feincms.module.medialibrary.
