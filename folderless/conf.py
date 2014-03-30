@@ -6,6 +6,7 @@ from appconf import AppConf
 
 
 class FolderlessConf(AppConf):
+    DEBUG = False
     # could have custom
     FILE_STORAGE = DefaultStorage()
     # could have custom
@@ -14,3 +15,5 @@ class FolderlessConf(AppConf):
     UPLOAD_TO = 'files'
     # base thumbnails path
     THUMBNAIL_TO = 'thumbs'
+    # convenience
+    STATIC_URL = settings.STATIC_URL + "folderless/"
