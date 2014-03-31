@@ -1,24 +1,19 @@
-{% load i18n %}{% spaceless %}
+{% load i18n thumbnail %}{% spaceless %}
 
 {% if object %}
-	{% if object.icons.32 %}
-		<a href="{{ object.url }}" target="_blank"><img id="{{ thumb_id }}" src="{{ object.icons.48 }}" alt="{{ object.label }}" /></a>
-		&nbsp;<span id="{{ span_id }}">{{ object.label }}</span>
-	{% else %}
-		<img id="{{ thumb_id }}" src="{{ filer_static_prefix }}icons/missingfile_48x48.png" alt="{% trans 'file missing' %}" />
-		&nbsp;<span id="{{ span_id }}">{% trans 'file missing' %}</span>
-	{% endif %}
+    {% thumbnail object.file size as thumbnail %}
+    <a href="{{ object.url }}" target="_blank"><img id="{{ thumb_id }}" src="{{ thumbnail }}" alt="{{ object.label }}" /></a>
+    &nbsp;<span id="{{ span_id }}">{{ object.label }}</span>
 {% else %}
-	<img id="{{ thumb_id }}" src="{{ filer_static_prefix }}icons/nofile_48x48.png" class="quiet" alt="{% trans 'no file selected' %}" />
+	<img id="{{ thumb_id }}" src="{{ folderless_static }}icons/nofile.png" class="quiet" alt="{% trans 'no file selected' %}" />
 	&nbsp;<span id="{{ span_id }}"></span>
 {% endif %}
-<a href="" class="related-lookup" id="lookup_id_{{ lookup_name }}" title="{% trans 'Lookup' %}" onclick="return showRelatedObjectLookupPopup(this);">
-	<img src="icon_searchbox.png" width="16" height="16" alt="{% trans 'Lookup' %}" />
+<a href="{{lookup_url}}" class="related-lookup" id="{{ lookup_id}}" title="{% trans 'Lookup' %}" onclick="return showRelatedObjectLookupPopup(this);">
+	<img src="{{ folderless_static }}img/lookup.png" width="16" height="16" alt="{% trans 'Lookup' %}" />Look!
 </a>
-<img id="{{ clear_id }}" src="icon_deletelink.gif" width="10" height="10" alt="{% trans 'Clear' %}" title="{% trans 'Clear' %}"{% if not object %} style="display: none;"{% endif %}" />
-<br />
+<img id="{{ clear_id }}" src="{{ folderless_static }}img/remove.png" width="10" height="10" alt="{% trans 'Clear' %}" title="{% trans 'Clear' %}" {% if not object %} style="display: none;"{% endif %}" />
 
-<input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple>
+<input id="{{ fileinput_id }}" type="file" name="files[]" data-url="server/php/">
 
 <script type="text/javascript">
 

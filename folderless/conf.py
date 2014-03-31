@@ -17,3 +17,7 @@ class FolderlessConf(AppConf):
     THUMBNAIL_TO = 'thumbs'
     # convenience
     STATIC_URL = settings.STATIC_URL + "folderless/"
+    # Image?
+    IMAGE_EXTENSIONS = ('jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff', )
+    IMAGE_SIZE_LIST = '200x200'
+    IMAGE_SIZE_FIELD = '100x100'

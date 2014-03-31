@@ -1,4 +1,6 @@
+import os
 from django.db import models
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerField
@@ -33,4 +35,12 @@ class File(models.Model):
         if not self.original_filename:
             self.original_filename = self.file.file
         super(File, self).save(*args, **kwargs)
+
+    @property
+    def is_image(self):
+        if self.file:
+            name, extension = os.path.splitext(self.file.name)
+            if extension in settings.FOLDERLESS_IMAGE_TYPES:
+                return True
+        return False
 

@@ -21,10 +21,9 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
 
     def render(self, name, value, attrs=None):
         obj = self.obj_for_value(value)
-        css_id = attrs.get('id', 'id_image_x')
-        css_id_thumbnail_img = "%s_thumbnail_img" % css_id
-        css_id_description_txt = "%s_description_txt" % css_id
-        related_url = None
+        #related_url = reverse('admin:filer-directory_listing-last')
+        related_url = reverse('admin:folderless_file_changelist')
+
         if value:
             try:
                 file_obj = File.objects.get(pk=value)
@@ -40,19 +39,27 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         if not 'class' in attrs:
             # The JavaScript looks for this hook.
             attrs['class'] = 'vForeignKeyRawIdAdminField'
+        else:
+            attrs['class'] += ' vForeignKeyRawIdAdminField'
         # rendering the super for ForeignKeyRawIdWidget on purpose here because
         # we only need the input and none of the other stuff that
         # ForeignKeyRawIdWidget adds
         hidden_input = super(ForeignKeyRawIdWidget, self).render(
                                                             name, value, attrs)
+        css_id = attrs.get('id', 'id_file_x')
         context = {
+            'folderless_static': settings.STATIC_URL + "folderless",
             'hidden_input': hidden_input,
             'lookup_url': '%s%s' % (related_url, lookup_url),
-            'thumb_id': css_id_thumbnail_img,
-            'span_id': css_id_description_txt,
             'object': obj,
-            'lookup_name': name,
+            'size': settings.FOLDERLESS_IMAGE_SIZE_FIELD,
+            'lookup_id': 'lookup_%s',
             'clear_id': '%s_clear' % css_id,
+            'upload_id': '%s_upload' % css_id,
+            'thumb_id': "%s_thumbnail_img" % css_id,
+            'span_id': "%s_description_txt" % css_id,
+            'fileinput_id': "%s_fileinput" % css_id,
+            'upload_id': "%s_upload" % css_id,
             'id': css_id,
         }
         html = render_to_string('admin/folderless/file_widget.html', context)
@@ -85,7 +92,7 @@ class FolderlessFileFormField(forms.ModelChoiceField):
         self.to_field_name = to_field_name
         self.max_value = None
         self.min_value = None
-        other_widget = kwargs.pop('widget', None)
+        kwargs.pop('widget', None)
         forms.Field.__init__(self, widget=self.widget(rel, site), *args, **kwargs)
 
     def widget_attrs(self, widget):
@@ -93,14 +100,12 @@ class FolderlessFileFormField(forms.ModelChoiceField):
         return {}
 
 
-
 class FolderlessFileField(models.ForeignKey):
     default_form_class = FolderlessFileFormField
     default_model_class = File
 
     def __init__(self, **kwargs):
-        # we call ForeignKey.__init__ with the Image model as parameter...
-        # a FilerImageFiled can only be a ForeignKey to a Image
+        # we call ForeignKey.__init__ with the File model as parameter.
         return super(FolderlessFileField, self).__init__(
             self.default_model_class, **kwargs)
 
