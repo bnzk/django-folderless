@@ -21,21 +21,20 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
 
     def render(self, name, value, attrs=None):
         obj = self.obj_for_value(value)
-        #related_url = reverse('admin:filer-directory_listing-last')
-        related_url = reverse('admin:folderless_file_changelist')
-
         if value:
             try:
                 file_obj = File.objects.get(pk=value)
             except Exception as e:
                 if settings.FOLDERLESS_DEBUG:
                     raise
+
         params = self.url_parameters()
         if params:
             lookup_url = '?' + '&amp;'.join(
                                 ['%s=%s' % (k, v) for k, v in list(params.items())])
         else:
             lookup_url = ''
+
         if not 'class' in attrs:
             # The JavaScript looks for this hook.
             attrs['class'] = 'vForeignKeyRawIdAdminField'
@@ -47,20 +46,19 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         hidden_input = super(ForeignKeyRawIdWidget, self).render(
                                                             name, value, attrs)
         css_id = attrs.get('id', 'id_file_x')
+
+        #related_url = reverse('admin:filer-directory_listing-last')
+        related_url = reverse('admin:folderless_file_changelist')
+
         context = {
-            'folderless_static': settings.STATIC_URL + "folderless",
+            'folderless_static': settings.STATIC_URL + "folderless/",
+            'admin_static': settings.STATIC_URL + "admin/",
             'hidden_input': hidden_input,
             'lookup_url': '%s%s' % (related_url, lookup_url),
             'object': obj,
             'size': settings.FOLDERLESS_IMAGE_SIZE_FIELD,
-            'lookup_id': 'lookup_%s',
-            'clear_id': '%s_clear' % css_id,
-            'upload_id': '%s_upload' % css_id,
-            'thumb_id': "%s_thumbnail_img" % css_id,
-            'span_id': "%s_description_txt" % css_id,
-            'fileinput_id': "%s_fileinput" % css_id,
-            'upload_id': "%s_upload" % css_id,
             'id': css_id,
+            'name': name,
         }
         html = render_to_string('admin/folderless/file_widget.html', context)
         return mark_safe(html)
@@ -77,10 +75,14 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
             obj = None
         return obj
 
+    # TODO: dont know if it is a good idea to load jquery!? if every field does this, where do we end then?
     class Media:
-        js = (settings.FOLDERLESS_STATIC_URL +  'js/jquery.iframe-transport.js',)
-        js = (settings.FOLDERLESS_STATIC_URL +  'js/jquery.fileupload.js',)
-        js = (settings.FOLDERLESS_STATIC_URL +  'js/jquery.folderless_file_widget.js',)
+        js = ('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            settings.FOLDERLESS_STATIC_URL +  'js/vendor/jquery.ui.widget.js',
+            settings.FOLDERLESS_STATIC_URL +  'js/vendor/jquery.iframe-transport.js',
+            settings.FOLDERLESS_STATIC_URL +  'js/vendor/jquery.fileupload.js',
+            settings.FOLDERLESS_STATIC_URL +  'js/jquery.folderless_file_widget.js',
+        )
 
 
 class FolderlessFileFormField(forms.ModelChoiceField):

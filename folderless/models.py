@@ -1,5 +1,6 @@
 import os
 from django.db import models
+from django.core import urlresolvers
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -44,3 +45,28 @@ class File(models.Model):
                 return True
         return False
 
+    @property
+    def label(self):
+        if self.title:
+            return '%s (%s)' % (self.title, self.original_filename)
+        else:
+            return self.original_filename
+
+    @property
+    def admin_url(self):
+        return urlresolvers.reverse(
+            'admin:%s_%s_change' % (self._meta.app_label,
+                                    self._meta.module_name,),
+            args=(self.pk,)
+        )
+
+    @property
+    def url(self):
+        """
+        to make the model behave like a file field
+        """
+        try:
+            r = self.file.url
+        except:
+            r = ''
+        return r
