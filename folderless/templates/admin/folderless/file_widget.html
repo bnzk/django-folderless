@@ -1,7 +1,7 @@
 {% load i18n thumbnail %}{% spaceless %}
 
 <div id="{{ widget_id }}"></div>
-<div style="display: none">{{ hidden_input }}</div>
+<div class="folderless_raw_id_field  folderless_hidden">{{ hidden_input }}</div>
 
 
 {% if object %}
@@ -24,17 +24,17 @@
     <img src="{{ admin_static }}img/icon_addlink.gif" alt="{% trans 'Upload' %}" title="{% trans 'Upload' %}">
     {% trans "Upload" %}
 </a>
-<input style="display: none" class="folderless_fileinput" type="file" name="{{ id }}_files[]" data-url="server/php/">
+<input class="folderless_fileinput folderless_hidden" type="file" name="{{ id }}_files[]" data-url="server/php/">
 
 <!-- edit -->
-<a href="{{ object.admin_url }}" target="_blank" class="folderless_edit">
-    <img src="{{ admin_static }}img/icon_changelink.gif" alt="{% trans 'Clear' %}" title="{% trans 'Clear' %}" {% if not object %} style="display: none;"{% endif %}" />
+<a href="{{ object.admin_url }}" target="_blank" class="folderless_edit{% if not object %} folderless_hidden{% endif %}">
+    <img src="{{ admin_static }}img/icon_changelink.gif" alt="{% trans 'Clear' %}" title="{% trans 'Clear' %}" />
     {% trans "Edit" %}
 </a>
 
 <!-- remove -->
-<a class="folderless_remove">
-    <img src="{{ admin_static }}img/icon_deletelink.gif" alt="{% trans 'Clear' %}" title="{% trans 'Clear' %}" {% if not object %} style="display: none;"{% endif %}" />
+<a class="folderless_remove{% if not object %} folderless_hidden{% endif %}" >
+    <img src="{{ admin_static }}img/icon_deletelink.gif" alt="{% trans 'Clear' %}" title="{% trans 'Clear' %}" />
     {% trans "Remove" %}
 </a>
 

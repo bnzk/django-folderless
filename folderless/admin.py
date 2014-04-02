@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.conf import settings
 
 from models import File
 
@@ -14,6 +15,10 @@ class FileAdmin(admin.ModelAdmin):
             obj.save()
         super(FileAdmin, self).save_model(request, obj, form, change)
 
+    class Media:
+        css = {
+            'screen': (settings.FOLDERLESS_STATIC_URL + "js/popup_handling.js", )
+        }
 
 
 admin.site.register(File, FileAdmin)

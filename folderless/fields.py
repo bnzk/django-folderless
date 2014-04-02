@@ -78,11 +78,14 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
     # TODO: dont know if it is a good idea to load jquery!? if every field does this, where do we end then?
     class Media:
         js = ('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            settings.FOLDERLESS_STATIC_URL +  'js/vendor/jquery.ui.widget.js',
-            settings.FOLDERLESS_STATIC_URL +  'js/vendor/jquery.iframe-transport.js',
-            settings.FOLDERLESS_STATIC_URL +  'js/vendor/jquery.fileupload.js',
-            settings.FOLDERLESS_STATIC_URL +  'js/jquery.folderless_file_widget.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.ui.widget.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.iframe-transport.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.fileupload.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_file_widget.js',
         )
+        css = {
+            'screen': (settings.FOLDERLESS_STATIC_URL + "css/folderless.css", )
+        }
 
 
 class FolderlessFileFormField(forms.ModelChoiceField):
