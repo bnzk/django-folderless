@@ -48,9 +48,17 @@ class FileAdmin(admin.ModelAdmin):
     search_fields = ['original_filename', 'title', ]
 
     class Media:
-        js = (
-             #settings.FOLDERLESS_STATIC_URL + "js/popup_handling.js",
+        js = ('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.ui.widget.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.iframe-transport.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.fileupload.js',
+             settings.FOLDERLESS_STATIC_URL + "js/jquery.folderless_change_list.js",
         )
+        css = {
+            'screen': (
+                settings.FOLDERLESS_STATIC_URL + "css/folderless.css",
+            )
+        }
 
     # TODO: what if used outside of ADMIN?
     def save_model(self, request, obj, form, change):

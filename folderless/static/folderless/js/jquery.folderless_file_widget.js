@@ -26,11 +26,13 @@
                 // return from browse
                 raw_id_field.change(raw_id_changed);
                 // uploader
-                upload_button.click(function() { file_input.click(); });
+                upload_button.click(function(e) { e.preventDefault(); file_input.click(); });
                 file_input.fileupload({
                     dataType: 'json',
                     replaceFileInput: false,
+                    sequentialUploads: true,
                     add: function(e, data) {
+                        upload_info.show(0);
                         browse_button.hide(0);
                         upload_button.hide(0);
                         remove_file();
@@ -41,7 +43,7 @@
                     },
                     progressall: function (e, data) {
                         var progress = parseInt(data.loaded / data.total * 100, 10);
-                        upload_info.html(progress + "%")
+                        upload_info.find("span").html(progress + "%")
                     }
                 });
                 remove_button.click(remove_file);
@@ -58,14 +60,18 @@
                 remove_button.show(0);
                 browse_button.show(0);
                 upload_button.show(0);
+                upload_info.hide(0);
             }
 
             var raw_id_changed = function() {
                 var data = {"file_id": raw_id_field.val()};
                 var url = browse_button.attr("data-info-url");
+                if (ajax_request) {
+                    ajax_request.abort();
+                }
                 ajax_request = $.get(url, data,
                     function(data, textStatus, xhr) {
-                        console.log(data);
+                        ajax_request = false;
                         update_file_info_n_interface(data);
                     });
 

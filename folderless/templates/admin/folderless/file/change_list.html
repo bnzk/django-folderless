@@ -1,8 +1,29 @@
 {% extends "admin/change_list.html" %}
-{% load admin_list folderless_admin_list %}
+{% load admin_list folderless_admin_list admin_urls i18n %}
+
+{% block object-tools-items %}
+<li>
+  <form method="POST" name="direct_upload_form" enctype="multipart/form-data">
+      <span class="folderless_upload_info folderless_hidden">uploading...<span>111</span></span>
+      <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" style="float: none" class="addlink folderless_uploader">
+        {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+      </a>
+      {% csrf_token %}
+
+      <input class="folderless_fileinput folderless_hidden" type="file" name="ajax_file" data-url="{% url 'admin:folderless-ajax_upload' %}" multiple>
+  </form>
+</li>
+{% endblock %}
 
 {% block result_list %}
     {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
     {% folderless_result_list cl %}
     {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
+
+    <script type="text/javascript">
+    $(document).ready(function($) {
+        // you can now use jquery / javascript here...
+        $('#content-main').folderless_change_list();
+    });
+    </script>
 {% endblock %}

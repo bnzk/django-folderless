@@ -37,6 +37,9 @@ class File(models.Model):
     def __unicode__(self):
         return u'%s' % self.original_filename
 
+    class Meta:
+        verbose_name = _(u'File')
+
     def save(self, *args, **kwargs):
         if not self.original_filename:
             self.original_filename = self.file.file
@@ -82,7 +85,7 @@ class File(models.Model):
 
     def thumb_list(self):
         if self.is_image:
-            url = self._thumb_url(settings.FOLDERLESS_IMAGE_WIDTH_LIST, settings.FOLDERLESS_IMAGE_HEIGHT_LIST)
+            url = self.thumb_list_url
             return '<a href="%s" target="_blank"><img src="%s" alt="%s"></a>' % (self.file.url, url, self.label)
         else:
             return
