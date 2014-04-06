@@ -3,6 +3,7 @@ import json
 from django.contrib import admin
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
 from django.forms.models import modelform_factory
 
@@ -10,11 +11,41 @@ from folderless.utils import handle_upload, UploadException
 from folderless.models import File
 
 
+class FileDateFilter(admin.SimpleListFilter):
+    title = _(u'Extension')
+    parameter_name = 'original_filename__iendswith'
+    def lookups(self,request,model_admin):
+        ext_files = File.objects.all().distinct('')
+    def queryset (self, request, queryset):
+        if self.value() is not None:
+            return queryset.filter(original_filename__iendswith=self.value())
+        else:
+            return queryset
+
+class FileTypeFilter(admin.SimpleListFilter):
+    title = _(u'Type')
+    parameter_name = 'type__exact'
+
+    def lookups(self, request, model_admin):
+        # TODO: limit filter to existing types? distinct ON doesnt work in sqlite3...soo...
+        #ext_files = File.objects.all().distinct('extension')
+        types = []
+        for key, definition in settings.FOLDERLESS_FILE_TYPES.iteritems():
+            types.append((key, definition.get("title")))
+        return sorted(types, key=lambda type: type[1])
+
+    def queryset (self, request, queryset):
+        if self.value() is not None:
+            return queryset.filter(type__exact=self.value())
+        else:
+            return queryset
+
 class FileAdmin(admin.ModelAdmin):
-    list_display = ['thumb_list', 'label', 'type', 'author', 'uploader', 'created', 'modified', ]
-    list_filter = ['type', 'created']
+    list_display = ['thumb_list', 'label', 'uploader', 'created', 'modified', ]
+    list_filter = [FileTypeFilter, 'created', 'modified', 'extension', 'uploader']
     list_display_links = ['label', ]
-    readonly_fields = ['original_filename', 'type', 'uploader', 'created', 'modified', 'sha1',]
+    readonly_fields = ['original_filename', 'type', 'extension', 'uploader', 'created', 'modified', 'sha1',]
+    search_fields = ['original_filename', 'title', ]
 
     class Media:
         js = (

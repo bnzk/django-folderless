@@ -2,6 +2,8 @@ import os
 from django.db import models
 from django.core import urlresolvers
 from django.conf import settings
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerField
@@ -9,25 +11,27 @@ from easy_thumbnails.files import get_thumbnailer
 
 from conf import settings
 
+OTHER_TYPE = 'other'
 
 class File(models.Model):
     uploader = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
         related_name='owned_files',
-        null=True, blank=True, verbose_name=_('uploader'))
+        null=True, blank=True, verbose_name=_('Uploader'))
     created = models.DateTimeField(
-        _('created'), default=timezone.now)
+        _('Created'), default=timezone.now)
     modified = models.DateTimeField(
-        _('modified'), auto_now=True)
+        _('Modified'), auto_now=True)
     title = models.CharField(_('title'), max_length=255, blank=True)
     author = models.CharField(_('author'), max_length=255, blank=True)
     copyright = models.CharField(_('copyright'), max_length=255, blank=True)
     type = models.CharField(
-        _('file type'), max_length=12, choices=(), blank=True)
+        _('File type'), max_length=12, choices=(), blank=True)
 
     file = ThumbnailerField(_('file'), upload_to=settings.FOLDERLESS_UPLOAD_TO,
                             storage=settings.FOLDERLESS_FILE_STORAGE,
                             thumbnail_storage=settings.FOLDERLESS_THUMBNAIL_STORAGE)
-    original_filename = models.CharField(_('original filename'), max_length=255, blank=True, null=True)
+    original_filename = models.CharField(_('Original filename'), max_length=255, blank=True, null=True)
+    extension = models.CharField(_('Extension'), max_length=255, blank=True, null=True)
     sha1 = models.CharField(_('Checksum'), help_text=_(u'For preventing duplicates'),max_length=40, blank=True, default='')
 
     def __unicode__(self):
@@ -41,9 +45,10 @@ class File(models.Model):
     @property
     def is_image(self):
         if self.file:
-            name, extension = os.path.splitext(self.file.name)
-            if extension[1:] in settings.FOLDERLESS_IMAGE_EXTENSIONS:
-                return True
+            image_definition = settings.FOLDERLESS_FILE_TYPES.get('image', None)
+            if not image_definition is None:
+                if self.extension in image_definition.get('extensions'):
+                    return True
         return False
 
     @property
@@ -109,3 +114,17 @@ class File(models.Model):
         except:
             r = ''
         return r
+
+@receiver(pre_save, sender=File, dispatch_uid="folderless_file_processing")
+def folderless_file_processing(sender, **kwargs):
+    instance = kwargs.get("instance")
+    if instance.file:
+        name, extension = os.path.splitext(instance.file.name)
+        if len(extension) > 1:
+            instance.extension = extension[1:].lower()
+        else:
+            instance.extension = ''
+        instance.type = OTHER_TYPE
+        for type, definition in settings.FOLDERLESS_FILE_TYPES.iteritems():
+            if instance.extension in definition.get("extensions"):
+                instance.type = type
