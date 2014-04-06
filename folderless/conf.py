@@ -19,5 +19,7 @@ class FolderlessConf(AppConf):
     STATIC_URL = settings.STATIC_URL + "folderless/"
     # Image?
     IMAGE_EXTENSIONS = ('jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff', )
-    IMAGE_SIZE_LIST = '200x200'
-    IMAGE_SIZE_FIELD = '100x100'
+    IMAGE_WIDTH_LIST = '200'
+    IMAGE_HEIGHT_LIST = '200'
+    IMAGE_WIDTH_FIELD = '100'
+    IMAGE_HEIGHT_FIELD = '100'

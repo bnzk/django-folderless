@@ -5,3 +5,29 @@
     display: none;
 
 }
+
+.folderless_file_link {
+    display: inline-block;
+    margin-right: 15px;
+    background-color: #f1f1f1;
+    line-height: 0px;
+    vertical-align: middle;
+    text-align: center;
+}
+.folderless_no_link {
+    /* cursor: cell; */
+}
+.folderless_file_link span {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+.folderless_file_link img {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.folderless_button, .folderless_file_label {
+    display: inline-block;
+    margin: 0 15px 0 0;
+}

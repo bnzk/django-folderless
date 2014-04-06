@@ -1,9 +1,8 @@
 {% extends "admin/change_list.html" %}
-{% load admin_list %}
+{% load admin_list folderless_admin_list %}
 
 {% block result_list %}
-    result! inject! # TODO: build custom tag, call original, replace dismissPopup call!
     {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
-    {% result_list cl %}
+    {% folderless_result_list cl %}
     {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
 {% endblock %}

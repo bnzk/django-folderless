@@ -56,7 +56,9 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
             'hidden_input': hidden_input,
             'lookup_url': '%s%s' % (related_url, lookup_url),
             'object': obj,
-            'size': settings.FOLDERLESS_IMAGE_SIZE_FIELD,
+            'width': settings.FOLDERLESS_IMAGE_WIDTH_FIELD,
+            'height': settings.FOLDERLESS_IMAGE_HEIGHT_FIELD,
+            'size': '%sx%s' % (settings.FOLDERLESS_IMAGE_WIDTH_FIELD, settings.FOLDERLESS_IMAGE_HEIGHT_FIELD),
             'id': css_id,
             'name': name,
         }
@@ -82,6 +84,7 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.iframe-transport.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.fileupload.js',
             settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_file_widget.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/popup_handling.js', # in popup, we call "opener.dismisss....
         )
         css = {
             'screen': (settings.FOLDERLESS_STATIC_URL + "css/folderless.css", )
