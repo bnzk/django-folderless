@@ -79,7 +79,6 @@ class FileAdmin(admin.ModelAdmin):
                 name='folderless-ajax_info'),
         )
         url_patterns.extend(urls)
-        print url_patterns
         return url_patterns
 
     def ajax_info(self, request):
