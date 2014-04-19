@@ -27,7 +27,7 @@ class File(models.Model):
     type = models.CharField(
         _('File type'), max_length=12, choices=(), blank=True)
 
-    file = ThumbnailerField(_('file'), upload_to=settings.FOLDERLESS_UPLOAD_TO,
+    file = ThumbnailerField(_('File'), upload_to=settings.FOLDERLESS_UPLOAD_TO,
                             storage=settings.FOLDERLESS_FILE_STORAGE,
                             thumbnail_storage=settings.FOLDERLESS_THUMBNAIL_STORAGE)
     original_filename = models.CharField(_('Original filename'), max_length=255, blank=True, null=True)
@@ -91,6 +91,22 @@ class File(models.Model):
         else:
             return
     thumb_list.allow_tags = True
+    thumb_list.short_description = _(u'Thumb')
+
+    def references_list(self):
+        links = [rel.get_accessor_name() for rel in File._meta.get_all_related_objects()]
+        total = 0
+        for link in links:
+            total += getattr(self, link).all().count()
+            #objects = getattr(File, link).all()
+            #for object in objects:
+                # do something with related object instance
+        if total > 0:
+            return "%sx" % total
+        else:
+            return "-"
+    references_list.allow_tags = True
+    references_list.short_description = _(u'Referenced?')
 
     def get_json_response(self):
         return {

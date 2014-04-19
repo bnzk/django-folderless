@@ -41,7 +41,7 @@ class FileTypeFilter(admin.SimpleListFilter):
             return queryset
 
 class FileAdmin(admin.ModelAdmin):
-    list_display = ['thumb_list', 'label', 'uploader', 'created', 'modified', ]
+    list_display = ['thumb_list', 'label', 'references_list', 'uploader', 'created', 'modified', ]
     list_filter = [FileTypeFilter, 'created', 'modified', 'extension', 'uploader']
     list_display_links = ['label', ]
     readonly_fields = ['original_filename', 'type', 'extension', 'uploader', 'created', 'modified', 'sha1',]

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
 # bnzk <bnzk@bnzk.ch>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: django-folderless\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-19 23:22+0200\n"
-"PO-Revision-Date: 2014-04-19 21:24+0000\n"
+"POT-Creation-Date: 2014-04-20 00:20+0200\n"
+"PO-Revision-Date: 2014-04-19 22:21+0000\n"
 "Last-Translator: bnzk <bnzk@bnzk.ch>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/django-folderless/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +33,7 @@ msgstr "Bild"
 
 #: conf.py:28
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: conf.py:32
 msgid "PDF document"
@@ -40,7 +41,7 @@ msgstr "PDF Dokument"
 
 #: conf.py:36
 msgid "Flash"
-msgstr ""
+msgstr "Flash"
 
 #: conf.py:40
 msgid "Archive (zip, etc)"
@@ -84,15 +85,15 @@ msgstr "Autor/Urheber"
 
 #: models.py:26
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: models.py:28
 msgid "File type"
 msgstr "Datei Typ"
 
-#: models.py:30
-msgid "file"
-msgstr ""
+#: models.py:30 models.py:41
+msgid "File"
+msgstr "Datei"
 
 #: models.py:33
 msgid "Original filename"
@@ -106,13 +107,17 @@ msgstr "Checksumme"
 msgid "For preventing duplicates"
 msgstr "Um Duplikate zu verhindern"
 
-#: models.py:41
-msgid "File"
-msgstr "Datei"
-
 #: models.py:42
 msgid "Files"
 msgstr "Dateien"
+
+#: models.py:94
+msgid "Thumb"
+msgstr "Vorschau"
+
+#: models.py:109
+msgid "Referenced?"
+msgstr "Verwendet?"
 
 #: templates/admin/folderless/file_widget.html:18
 msgid "no file selected"
@@ -152,6 +157,8 @@ msgstr "Fehler"
 msgid "Add %(name)s"
 msgstr ""
 
-#: test_app/models.py:9
-msgid "dummy"
-msgstr ""
+#~ msgid "file"
+#~ msgstr "file"
+
+#~ msgid "dummy"
+#~ msgstr "dummy"
