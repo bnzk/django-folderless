@@ -2,7 +2,7 @@ import os
 from django.db import models
 from django.core import urlresolvers
 from django.conf import settings
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -21,9 +21,9 @@ class File(models.Model):
         _('Created'), default=timezone.now)
     modified = models.DateTimeField(
         _('Modified'), auto_now=True)
-    title = models.CharField(_('title'), max_length=255, blank=True)
-    author = models.CharField(_('author'), max_length=255, blank=True)
-    copyright = models.CharField(_('copyright'), max_length=255, blank=True)
+    title = models.CharField(_('Title'), max_length=255, blank=True)
+    author = models.CharField(_('Author'), max_length=255, blank=True)
+    copyright = models.CharField(_('Copyright'), max_length=255, blank=True)
     type = models.CharField(
         _('File type'), max_length=12, choices=(), blank=True)
 
@@ -39,6 +39,7 @@ class File(models.Model):
 
     class Meta:
         verbose_name = _(u'File')
+        verbose_name_plural = _(u'Files')
 
     def save(self, *args, **kwargs):
         if not self.original_filename:
@@ -131,3 +132,9 @@ def folderless_file_processing(sender, **kwargs):
         for type, definition in settings.FOLDERLESS_FILE_TYPES.iteritems():
             if instance.extension in definition.get("extensions"):
                 instance.type = type
+
+# do this with a signal, to catch all
+@receiver(pre_delete, sender=File)
+def cleanup_file_on_delete(sender, instance, **kwargs):
+    print instance.file.__dict__
+    instance.file.delete(False)

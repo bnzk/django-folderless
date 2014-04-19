@@ -1,9 +1,8 @@
 
 
-.folderless_hidden
+body .folderless_hidden
 {
     display: none;
-
 }
 
 .folderless_file_link {
@@ -30,4 +29,10 @@
 .folderless_button, .folderless_file_label {
     display: inline-block;
     margin: 0 15px 0 0;
+}
+
+.folderless_upload_info {
+    float: left;
+    padding: 6px 15px 0 0;
+    display: block;
 }

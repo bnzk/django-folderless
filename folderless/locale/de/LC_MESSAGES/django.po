@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# bnzk <bnzk@bnzk.ch>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: django-folderless\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-19 23:22+0200\n"
+"PO-Revision-Date: 2014-04-19 21:24+0000\n"
+"Last-Translator: bnzk <bnzk@bnzk.ch>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/django-folderless/language/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:15 models.py:34
+msgid "Extension"
+msgstr "Erweiterung"
+
+#: admin.py:26
+msgid "Type"
+msgstr "Typ"
+
+#: conf.py:24
+msgid "Image"
+msgstr "Bild"
+
+#: conf.py:28
+msgid "Video"
+msgstr ""
+
+#: conf.py:32
+msgid "PDF document"
+msgstr "PDF Dokument"
+
+#: conf.py:36
+msgid "Flash"
+msgstr ""
+
+#: conf.py:40
+msgid "Archive (zip, etc)"
+msgstr "Archiv (zip, etc)"
+
+#: conf.py:44
+msgid "Audio"
+msgstr "Ton"
+
+#: conf.py:48
+msgid "Text document"
+msgstr "Textdokument"
+
+#: conf.py:52
+msgid "Spreadsheet"
+msgstr "Tabelle"
+
+#: conf.py:56
+msgid "Presentation"
+msgstr "Präsentation"
+
+#: models.py:19
+msgid "Uploader"
+msgstr "Hochlader"
+
+#: models.py:21
+msgid "Created"
+msgstr "Erstellt"
+
+#: models.py:23
+msgid "Modified"
+msgstr "Geändert"
+
+#: models.py:24
+msgid "Title"
+msgstr "Titel"
+
+#: models.py:25
+msgid "Author"
+msgstr "Autor/Urheber"
+
+#: models.py:26
+msgid "Copyright"
+msgstr ""
+
+#: models.py:28
+msgid "File type"
+msgstr "Datei Typ"
+
+#: models.py:30
+msgid "file"
+msgstr ""
+
+#: models.py:33
+msgid "Original filename"
+msgstr "Originaler Dateiname"
+
+#: models.py:35
+msgid "Checksum"
+msgstr "Checksumme"
+
+#: models.py:35
+msgid "For preventing duplicates"
+msgstr "Um Duplikate zu verhindern"
+
+#: models.py:41
+msgid "File"
+msgstr "Datei"
+
+#: models.py:42
+msgid "Files"
+msgstr "Dateien"
+
+#: templates/admin/folderless/file_widget.html:18
+msgid "no file selected"
+msgstr "Keine Datei ausgewählt"
+
+#: templates/admin/folderless/file_widget.html:25
+#: templates/admin/folderless/file_widget.html:26
+#: templates/admin/folderless/file_widget.html:27
+msgid "Browse"
+msgstr "Durchsuchen"
+
+#: templates/admin/folderless/file_widget.html:32
+#: templates/admin/folderless/file_widget.html:33
+msgid "Upload"
+msgstr "Hochladen"
+
+#: templates/admin/folderless/file_widget.html:40
+#: templates/admin/folderless/file_widget.html:41
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: templates/admin/folderless/file_widget.html:46
+#: templates/admin/folderless/file_widget.html:47
+msgid "Remove"
+msgstr "Entfernen"
+
+#: templates/admin/folderless/file/change_list.html:9
+msgid "of"
+msgstr "von"
+
+#: templates/admin/folderless/file/change_list.html:11
+msgid "errors"
+msgstr "Fehler"
+
+#: templates/admin/folderless/file/change_list.html:14
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: test_app/models.py:9
+msgid "dummy"
+msgstr ""
