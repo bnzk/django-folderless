@@ -52,7 +52,8 @@ class FileAdmin(admin.ModelAdmin):
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.ui.widget.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.iframe-transport.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.fileupload.js',
-             settings.FOLDERLESS_STATIC_URL + "js/jquery.folderless_change_list.js",
+            settings.FOLDERLESS_STATIC_URL + "js/jquery.folderless_change_list.js",
+            settings.FOLDERLESS_STATIC_URL + "js/folderless_jquery_namespace.js",
         )
         css = {
             'screen': (

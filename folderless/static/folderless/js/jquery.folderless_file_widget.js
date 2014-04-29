@@ -1,6 +1,4 @@
 
-// TODO: implement uploader, remove, onchange!
-
 (function($){
 	$.fn.folderless_file_widget = function()
 	{

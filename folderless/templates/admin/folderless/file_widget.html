@@ -51,7 +51,15 @@
 
 <script type="text/javascript">
 
-$(document).ready(function($) {
+/*
+mm. TODO: clean up the jQuery namespace mess
+console.log(jQuery);
+console.log($);
+console.log(CMS.$);
+console.log(django.jQuery);
+*/
+
+folderless_jquery(document).ready(function($) {
     // you can now use jquery / javascript here...
     $('.field-{{ name }}').folderless_file_widget();
 });

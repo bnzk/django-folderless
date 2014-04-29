@@ -1,6 +1,4 @@
 
-// TODO: implement uploader, remove, onchange!
-
 (function($){
 	$.fn.folderless_change_list = function()
 	{
