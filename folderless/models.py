@@ -149,7 +149,7 @@ def folderless_file_processing(sender, **kwargs):
             if instance.extension in definition.get("extensions"):
                 instance.type = type
 
-# do this with a signal, to catch all
+# do this with a signal, to catch them all
 @receiver(pre_delete, sender=File)
 def cleanup_file_on_delete(sender, instance, **kwargs):
     print instance.file.__dict__

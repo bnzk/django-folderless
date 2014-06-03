@@ -16,7 +16,7 @@ def handle_upload(request):
     if not request.method == "POST":
         raise UploadException("AJAX request not valid: must be POST")
     if len(request.FILES) == 1:
-        print "not raw!"
+        # print "not raw!"
         # FILES is a dictionary in Django but Ajax Upload gives the uploaded file an
         # ID based on a random number, so it cannot be guessed here in the code.
         # Rather than editing Ajax Upload to pass the ID in the querystring, note that
