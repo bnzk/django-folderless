@@ -115,6 +115,8 @@ class FolderlessFileField(models.ForeignKey):
 
     def __init__(self, **kwargs):
         # we call ForeignKey.__init__ with the File model as parameter.
+        if not "on_delete" in kwargs:
+            kwargs['on_delete'] = models.PROTECT
         return super(FolderlessFileField, self).__init__(
             self.default_model_class, **kwargs)
 
