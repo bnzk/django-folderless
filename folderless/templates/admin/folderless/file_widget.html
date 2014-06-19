@@ -1,67 +1,72 @@
 {% load i18n thumbnail %}{% spaceless %}
 
-<div id="{{ widget_id }}"></div>
-<div class="folderless_raw_id_field  folderless_hidden">{{ hidden_input }}</div>
-<img class="folderless_hidden folderless_unknown" src="{{ admin_static }}img/icon-unknown.gif" alt="Browse or upload a file">
+<div id="{{ widget_id }}" class="widget-wrap-{{ name }}" data-field-name="{{ name }}">
+  <div class="folderless_raw_id_field  folderless_hidden">{{ hidden_input }}</div>
+  <img class="folderless_hidden folderless_unknown" src="{{ admin_static }}img/icon-unknown.gif" alt="Browse or upload a file">
 
-{% if object %}
-    {% if object.is_image %}
-        {% thumbnail object.file size as thumb %}
-        <a style="width: {{ width }}px; height: {{ height }}px; " class="folderless_file_link" href="{{ object.url }}" target="_blank">
-            <img class="folderless_thumb" src="{{ thumb.url }}" alt="{{ object.label }}" >
-            <span></span>
-        </a>
-        {% endif %}
-        <span class="folderless_file_label">{{ object.label }}</span>
-{% else %}
-	<a style="width: {{ width }}px; height: {{ height }}px; " class="folderless_file_link" target="_blank">
-        <img src="{{ admin_static }}img/icon-unknown.gif" class="quiet folderless_thumb" alt="{% trans 'no file selected' %}" >
-        <span></span>
-    </a>
-	<span class="folderless_file_label"></span>
-{% endif %}
+  {% if object %}
+      {% if object.is_image %}
+          {% thumbnail object.file size as thumb %}
+          <a style="width: {{ width }}px; height: {{ height }}px; " class="folderless_file_link" href="{{ object.url }}" target="_blank">
+              <img class="folderless_thumb" src="{{ thumb.url }}" alt="{{ object.label }}" >
+              <span></span>
+          </a>
+          {% endif %}
+          <span class="folderless_file_label">{{ object.label }}</span>
+  {% else %}
+    <a style="width: {{ width }}px; height: {{ height }}px; " class="folderless_file_link" target="_blank">
+          <img src="{{ admin_static }}img/icon-unknown.gif" class="quiet folderless_thumb" alt="{% trans 'no file selected' %}" >
+          <span></span>
+      </a>
+    <span class="folderless_file_label"></span>
+  {% endif %}
 
-<!-- lookup -->
-<a href="{{lookup_url}}" class="related-lookup folderless_browser folderless_button" data-info-url="{% url 'admin:folderless-ajax_info' %}" title="{% trans 'Browse' %}" id="lookup_{{ id }}" onclick="return showRelatedObjectLookupPopup(this);">
-	<img src="{{ admin_static }}img/selector-search.gif" width="16" height="16" title="{% trans 'Browse' %}" alt="{% trans 'Browse' %}" />
-    {% trans "Browse" %}
-</a>
+  <!-- lookup -->
+  <a href="{{lookup_url}}" class="related-lookup folderless_browser folderless_button" data-info-url="{% url 'admin:folderless-ajax_info' %}" title="{% trans 'Browse' %}" id="lookup_{{ id }}" onclick="return showRelatedObjectLookupPopup(this);">
+    <img src="{{ admin_static }}img/selector-search.gif" width="16" height="16" title="{% trans 'Browse' %}" alt="{% trans 'Browse' %}" />
+      {% trans "Browse" %}
+  </a>
 
-<!-- upload -->
-<a class="folderless_uploader folderless_button">
-    <img src="{{ admin_static }}img/icon_addlink.gif" alt="{% trans 'Upload' %}" title="{% trans 'Upload' %}">
-    {% trans "Upload" %}
-</a>
-<span class="folderless_upload_info folderless_hidden">uploading...<span></span></span>
-<input class="folderless_fileinput folderless_hidden" type="file" name="ajax_file" data-url="{% url 'admin:folderless-ajax_upload' %}">
+  <!-- upload -->
+  <a class="folderless_uploader folderless_button">
+      <img src="{{ admin_static }}img/icon_addlink.gif" alt="{% trans 'Upload' %}" title="{% trans 'Upload' %}">
+      {% trans "Upload" %}
+  </a>
+  <span class="folderless_upload_info folderless_hidden">uploading...<span></span></span>
+  <input class="folderless_fileinput folderless_hidden" type="file" name="ajax_file" data-url="{% url 'admin:folderless-ajax_upload' %}">
 
-<!-- edit -->
-<a href="{{ object.admin_url }}?_popup=true" target="_blank" class="folderless_button folderless_edit{% if not object %} folderless_hidden{% endif %}">
-    <img src="{{ admin_static }}img/icon_changelink.gif" alt="{% trans 'Edit' %}" title="{% trans 'Edit' %}" />
-    {% trans "Edit" %}
-</a>
+  <!-- edit -->
+  <a href="{{ object.admin_url }}?_popup=true" target="_blank" class="folderless_button folderless_edit{% if not object %} folderless_hidden{% endif %}">
+      <img src="{{ admin_static }}img/icon_changelink.gif" alt="{% trans 'Edit' %}" title="{% trans 'Edit' %}" />
+      {% trans "Edit" %}
+  </a>
 
-<!-- remove -->
-<a class="folderless_button folderless_remove{% if not object %} folderless_hidden{% endif %}" >
-    <img src="{{ admin_static }}img/icon_deletelink.gif" alt="{% trans 'Remove' %}" title="{% trans 'Remove' %}" />
-    {% trans "Remove" %}
-</a>
-
+  <!-- remove -->
+  <a class="folderless_button folderless_remove{% if not object %} folderless_hidden{% endif %}" >
+      <img src="{{ admin_static }}img/icon_deletelink.gif" alt="{% trans 'Remove' %}" title="{% trans 'Remove' %}" />
+      {% trans "Remove" %}
+  </a>
+</div>
 
 
 <script type="text/javascript">
 
+/* mm. TODO: clean up the jQuery namespace mess */
 /*
-mm. TODO: clean up the jQuery namespace mess
+console.log("jquery");
 console.log(jQuery);
+console.log("$ jquery");
 console.log($);
-console.log(CMS.$);
+//console.log("CMS jquery");
+// this breaks! console.log(CMS.$);
+console.log("DJ jquery");
 console.log(django.jQuery);
+console.log("FL jquery");
+console.log(folderless_jquery);
 */
 
 folderless_jquery(document).ready(function($) {
-    // you can now use jquery / javascript here...
-    $('.field-{{ name }}').folderless_file_widget();
+    $('.widget-wrap-{{ name }}').folderless_file_widget();
 });
 
 </script>

@@ -20,7 +20,10 @@
 
             var init = function() {
                 // cleanup from rawidfield
-                _self.find(".add-another").hide(0);
+                //_self.find(".add-another").hide(0);
+                console.log(_self.attr("data-field-name"));
+                console.log($("#add_id_" + _self.attr("data-field-name")));
+                $("#add_id_" + _self.attr("data-field-name")).hide(0);
                 // return from browse
                 raw_id_field.change(raw_id_changed);
                 // uploader

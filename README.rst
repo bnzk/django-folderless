@@ -14,4 +14,4 @@ to be written...
 3. add field, migrate/sync
 4. test
 
-
+in the meantime: http://de.slideshare.net/motivesystems/slideshare-upload-gartner-pcc-presentation-going-folderless-with-metadata
