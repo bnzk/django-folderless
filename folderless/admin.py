@@ -45,7 +45,7 @@ class FileAdmin(admin.ModelAdmin):
     list_filter = [FileTypeFilter, 'created', 'modified', 'extension', 'uploader']
     list_display_links = ['label', ]
     readonly_fields = ['original_filename', 'type', 'extension', 'uploader', 'created', 'modified', 'sha1',]
-    search_fields = ['original_filename', 'title', ]
+    search_fields = ['original_filename', 'name', ]
 
     class Media:
         js = ('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
@@ -71,6 +71,7 @@ class FileAdmin(admin.ModelAdmin):
     def get_urls(self):
         from django.conf.urls import patterns, url
         urls = super(FileAdmin, self).get_urls()
+
         url_patterns = patterns('',
             url(r'^ajax-upload/$',
                 self.admin_site.admin_view(self.ajax_upload),

@@ -57,7 +57,7 @@ class FolderlessConf(AppConf):
             'extensions': ('ppt', 'pptx', 'odp'),
         },
     }
-    IMAGE_WIDTH_LIST = '200'
-    IMAGE_HEIGHT_LIST = '200'
-    IMAGE_WIDTH_FIELD = '100'
-    IMAGE_HEIGHT_FIELD = '100'
+    IMAGE_WIDTH_LIST = '150'
+    IMAGE_HEIGHT_LIST = '150'
+    IMAGE_WIDTH_FIELD = '200'
+    IMAGE_HEIGHT_FIELD = '150'
