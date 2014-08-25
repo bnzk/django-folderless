@@ -3,10 +3,9 @@ django-folderless
 
 simple media manager for django - you won't need those folders.
 
-nevertheless, heavily experienced by django-filer, and to some extent, feincms.module.medialibrary.
+nevertheless, heavily experienced by django-filer, and to some extent, feincms.module.medialibrary. initial idea credits: https://github.com/wullerot/
 
-initial idea credits: https://github.com/wullerot/
-using http://semver.org
+this project will use http://semver.org
 
 to be written...
 0. deps
