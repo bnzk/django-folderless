@@ -3,6 +3,9 @@ import os
 import logging
 import django.conf.global_settings as DEFAULT_SETTINGS
 
+from test_utils.tmpdir import temp_dir
+
+
 DEBUG = True
 
 logging.getLogger("factory").setLevel(logging.WARN)
@@ -10,7 +13,7 @@ logging.getLogger("factory").setLevel(logging.WARN)
 SITE_ID = 1
 
 APP_ROOT = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..'))
+    os.path.join(os.path.dirname(__file__), ".."))
 
 
 DATABASES = {
@@ -23,8 +26,8 @@ DATABASES = {
 ROOT_URLCONF = 'folderless.tests.urls'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(APP_ROOT, '../app_static')
-MEDIA_ROOT = os.path.join(APP_ROOT, '../app_media')
+STATIC_ROOT = os.path.join(APP_ROOT, '../test_app_static')
+MEDIA_ROOT = os.path.join(APP_ROOT, '../test_app_media')
 STATICFILES_DIRS = (
     os.path.join(APP_ROOT, 'static'),
 )
@@ -51,19 +54,19 @@ EXTERNAL_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'django_nose',
+    'easy_thumbnails',
 ]
 
 INTERNAL_APPS = [
-    'painless_redirects',
-    'painless_redirects.tests.test_app',
+    'folderless',
+    'folderless.tests.test_app',
 ]
 
 MIDDLEWARE_CLASSES = DEFAULT_SETTINGS.MIDDLEWARE_CLASSES + (
-    "painless_redirects.middleware.ManualRedirectMiddleware",
-    "painless_redirects.middleware.ForceSiteDomainRedirectMiddleware",
+    # just in case.
 )
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
 COVERAGE_MODULE_EXCLUDES += EXTERNAL_APPS
 
-SECRET_KEY = 'foobar'
+SECRET_KEY = 'foobarXXXXY'

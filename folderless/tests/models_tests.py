@@ -6,11 +6,11 @@ from django.core.files import File as DjangoFile
 from django.conf import settings
 
 from folderless.models import File
-from folderless.test_utils.helpers import (create_superuser, create_image)
-from folderless.conf import settings as filer_settings
+from folderless.tests.test_utils.helpers import (create_superuser, create_image)
+from folderless.conf import settings as folderless_settings
 
 
-class FolderlessApiTests(TestCase):
+class FolderlessModelsTests(TestCase):
 
     def setUp(self):
         self.superuser = create_superuser()

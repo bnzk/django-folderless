@@ -2,4 +2,8 @@
 *.egg
 *.egg-info
 .idea/*
+db.sqlite
+.coverage
+test_app_media
+folderless/tests/coverage
 
