@@ -1,10 +1,10 @@
-#-*- coding: utf-8 -*-
-import inspect
+# -*- coding: utf-8 -*-
+# import inspect
 from django import forms
-from django.conf import settings as globalsettings
+# from django.conf import settings as globalsettings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.contrib.admin.sites import site
-from django.core.exceptions import ImproperlyConfigured
+# from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.loader import render_to_string
@@ -23,19 +23,19 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         obj = self.obj_for_value(value)
         if value:
             try:
-                file_obj = File.objects.get(pk=value)
-            except Exception as e:
+                File.objects.get(pk=value)
+            except Exception:
                 if settings.FOLDERLESS_DEBUG:
                     raise
 
         params = self.url_parameters()
         if params:
             lookup_url = '?' + '&amp;'.join(
-                                ['%s=%s' % (k, v) for k, v in list(params.items())])
+                ['%s=%s' % (k, v) for k, v in list(params.items())])
         else:
             lookup_url = ''
 
-        if not 'class' in attrs:
+        if 'class' not in attrs:
             # The JavaScript looks for this hook.
             attrs['class'] = 'vForeignKeyRawIdAdminField'
         else:

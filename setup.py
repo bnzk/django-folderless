@@ -2,24 +2,26 @@
 from setuptools import setup, find_packages
 import os
 
+
 version = __import__('folderless').__version__
+
 
 def read(fname):
     # read the contents of a text file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "django-folderless",
-    version = version,
-    url = 'http://github.com/benzkji/django-folderless',
-    license = 'BSD',
+    name="django-folderless",
+    version=version,
+    url='http://github.com/benzkji/django-folderless',
+    license='BSD',
     platforms=['OS Independent'],
-    description = "folderless media management for django",
-    long_description = read('README.rst'),
-    author = u'Ben Stähli',
-    author_email = 'bnzk@bnzk.ch',
+    description="folderless media management for django",
+    long_description=read('README.rst'),
+    author=u'Ben Stähli',
+    author_email='bnzk@bnzk.ch',
     packages=find_packages(),
-    install_requires = (
+    install_requires=(
         # 'Django>=1.3,<1.5',  # no need to limit while in development
         'Django>=1.5',
         'easy-thumbnails>=1.0',
@@ -27,7 +29,7 @@ setup(
     ),
     include_package_data=True,
     zip_safe=False,
-    classifiers = [
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',
         'Intended Audience :: Developers',

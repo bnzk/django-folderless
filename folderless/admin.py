@@ -17,6 +17,7 @@ class FileDateFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         ext_files = File.objects.all().distinct('')
+        return ext_files
 
     def queryset(self, request, queryset):
         if self.value() is not None:
