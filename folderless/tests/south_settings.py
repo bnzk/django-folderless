@@ -20,3 +20,6 @@ DATABASES = {
 }
 
 INSTALLED_APPS.append('south', )
+
+MEDIA_ROOT = os.path.join(APP_ROOT, '../test_app_media')
+FILE_UPLOAD_TEMP_DIR = None # django handles this with /tmp, then.

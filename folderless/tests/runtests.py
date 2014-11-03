@@ -9,6 +9,7 @@ for your app and run the tests as if you were calling ``./manage.py test``.
 """
 import re
 import sys
+import tempfile
 
 import django
 from django.conf import settings
@@ -22,7 +23,6 @@ import test_settings
 
 if not settings.configured:
     settings.configure(**test_settings.__dict__)
-
 if '1.7' in django.get_version():
     django.setup()
 

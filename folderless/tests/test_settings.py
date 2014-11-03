@@ -1,9 +1,7 @@
 """Settings that need to be set in order to run the tests."""
-import os
+import os, tempfile
 import logging
 import django.conf.global_settings as DEFAULT_SETTINGS
-
-from test_utils.tmpdir import temp_dir
 
 
 DEBUG = True
@@ -15,6 +13,8 @@ SITE_ID = 1
 APP_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), ".."))
 
+NOSE_ARGS = ['--nocapture',
+             '--nologcapture',]
 
 DATABASES = {
     'default': {
@@ -25,9 +25,11 @@ DATABASES = {
 
 ROOT_URLCONF = 'folderless.tests.urls'
 
+# media root is overridden when needed in tests
+MEDIA_ROOT = tempfile.mkdtemp(suffix='folderless_media_root')
+FILE_UPLOAD_TEMP_DIR = tempfile.mkdtemp(suffix='folderless_temp')
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(APP_ROOT, '../test_app_static')
-MEDIA_ROOT = os.path.join(APP_ROOT, '../test_app_media')
 STATICFILES_DIRS = (
     os.path.join(APP_ROOT, 'static'),
 )
