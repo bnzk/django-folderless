@@ -1,5 +1,6 @@
 """Settings that need to be set in order to run the tests."""
-import os, tempfile
+import os
+import tempfile
 import logging
 import django.conf.global_settings as DEFAULT_SETTINGS
 
@@ -14,7 +15,7 @@ APP_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), ".."))
 
 NOSE_ARGS = ['--nocapture',
-             '--nologcapture',]
+             '--nologcapture', ]
 
 DATABASES = {
     'default': {

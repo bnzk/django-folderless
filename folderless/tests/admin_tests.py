@@ -1,13 +1,13 @@
-#-*- coding: utf-8 -*-
-import os
-from django.forms.models import modelform_factory
-from django.test import TestCase
-from django.core.files import File as DjangoFile
-from django.core.urlresolvers import reverse
-from django.conf import settings
+# -*- coding: utf-8 -*-
 
-from folderless.models import File
-from folderless.tests.utils import create_superuser, create_image
+# from django.forms.models import modelform_factory
+from django.test import TestCase
+# from django.core.files import File as DjangoFile
+from django.core.urlresolvers import reverse
+# from django.conf import settings
+
+# from folderless.models import File
+from folderless.tests.utils import create_superuser  # , create_image
 
 
 class FolderlessAdminUrlsTests(TestCase):

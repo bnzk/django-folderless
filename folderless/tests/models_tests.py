@@ -1,13 +1,11 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os
-from django.forms.models import modelform_factory
 from django.test import TestCase
 from django.core.files import File as DjangoFile
 from django.conf import settings
 
 from folderless.models import File
 from folderless.tests.utils import create_superuser, create_image
-from folderless.conf import settings as folderless_settings
 
 
 class FolderlessModelsTests(TestCase):
@@ -30,8 +28,8 @@ class FolderlessModelsTests(TestCase):
     def _create_file(self):
         file_obj = DjangoFile(open(self.filename), name=self.image_name)
         image = File.objects.create(uploader=self.superuser,
-                                     original_filename=self.image_name,
-                                     file=file_obj)
+                                    original_filename=self.image_name,
+                                    file=file_obj)
         return image
 
     def test_create_and_delete_file(self):
@@ -43,4 +41,3 @@ class FolderlessModelsTests(TestCase):
         self.assertEqual(True, os.path.isfile(file.file.path))
         file.delete()
         self.assertEqual(File.objects.count(), 0)
-

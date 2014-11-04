@@ -9,7 +9,6 @@ for your app and run the tests as if you were calling ``./manage.py test``.
 """
 import re
 import sys
-import tempfile
 
 import django
 from django.conf import settings

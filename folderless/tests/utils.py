@@ -1,7 +1,8 @@
-#-*- coding: utf-8 -*-
-from PIL import Image, ImageChops, ImageDraw
+# -*- coding: utf-8 -*-
+from PIL import Image, ImageDraw
 
 # django-filer inspired.
+
 
 try:
     from django.contrib.auth import get_user_model
@@ -9,11 +10,13 @@ try:
 except ImportError:
     from django.contrib.auth.models import User  # NOQA
 
+
 def create_superuser():
     superuser = User.objects.create_superuser('admin',
                                               'admin@free.fr',
                                               'secret')
     return superuser
+
 
 def create_image(mode='RGB', size=(800, 600)):
     image = Image.new(mode, size)

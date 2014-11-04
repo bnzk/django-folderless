@@ -43,11 +43,11 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         # rendering the super for ForeignKeyRawIdWidget on purpose here because
         # we only need the input and none of the other stuff that
         # ForeignKeyRawIdWidget adds
-        hidden_input = super(ForeignKeyRawIdWidget, self).render(
-                                                            name, value, attrs)
+        hidden_input = super(ForeignKeyRawIdWidget, self).render(name, value,
+                                                                 attrs)
         css_id = attrs.get('id', 'id_file_x')
 
-        #related_url = reverse('admin:filer-directory_listing-last')
+        # related_url = reverse('admin:filer-directory_listing-last')
         related_url = reverse('admin:folderless_file_changelist')
 
         context = {
@@ -80,14 +80,14 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
     # TODO: dont know if it is a good idea to load jquery!? if every field does this, where do we end then?
     class Media:
         js = (
-            #'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            # 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery-1.9.1.min.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.ui.widget.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.iframe-transport.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.fileupload.js',
             settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_file_widget.js',
-            settings.FOLDERLESS_STATIC_URL + 'js/popup_handling.js', # in popup, we call "opener.dismisss....
-            settings.FOLDERLESS_STATIC_URL + 'js/folderless_jquery_namespace.js', # for the moment!
+            settings.FOLDERLESS_STATIC_URL + 'js/popup_handling.js',  # in popup, we call "opener.dismisss....
+            settings.FOLDERLESS_STATIC_URL + 'js/folderless_jquery_namespace.js',  # for the moment!
         )
         css = {
             'screen': (settings.FOLDERLESS_STATIC_URL + "css/folderless.css", )
@@ -117,7 +117,7 @@ class FolderlessFileField(models.ForeignKey):
 
     def __init__(self, **kwargs):
         # we call ForeignKey.__init__ with the File model as parameter.
-        if not "on_delete" in kwargs:
+        if "on_delete" not in kwargs:
             kwargs['on_delete'] = models.PROTECT
         return super(FolderlessFileField, self).__init__(
             self.default_model_class, **kwargs)
