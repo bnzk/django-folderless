@@ -15,7 +15,9 @@ APP_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), ".."))
 
 NOSE_ARGS = ['--nocapture',
-             '--nologcapture', ]
+             '--nologcapture',
+             '--exclude-dir=folderless/migrations',
+             '--exclude-dir=migrations', ]
 
 DATABASES = {
     'default': {
