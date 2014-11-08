@@ -21,7 +21,6 @@ class FolderlessAdminUrlsTests(TestCase):
                                      self.image_name)
         self.img.save(self.filename, 'JPEG')
 
-
     def tearDown(self):
         self.client.logout()
 

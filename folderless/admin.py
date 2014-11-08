@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse
 from django.forms.models import modelform_factory
 
 from folderless.utils import handle_upload, UploadException
