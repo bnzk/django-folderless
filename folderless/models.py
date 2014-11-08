@@ -1,3 +1,6 @@
+# coding: utf-8
+
+import hashlib
 import os
 from django.db import models
 from django.core import urlresolvers
@@ -20,8 +23,10 @@ class File(models.Model):
         thumbnail_storage=settings.FOLDERLESS_THUMBNAIL_STORAGE)
     name = models.CharField(
         _('name'), max_length=255, blank=True, default='')
-    original_filename = models.CharField(
-        _('Original filename'), max_length=255, blank=True, default='')
+    filename = models.CharField(
+        _('Filename'),
+        help_text=_(u'Use for renaming your file on the server'),
+        max_length=255, blank=False, unique=True)
     author = models.CharField(
         _('Author'), max_length=255, blank=True, default='')
     copyright = models.CharField(
@@ -38,21 +43,34 @@ class File(models.Model):
         _('Modified'), auto_now=True)
     extension = models.CharField(
         _('Extension'), max_length=255, blank=True, default='')
-    sha1 = models.CharField(
+    file_hash = models.CharField(
         _('Checksum'), help_text=_(u'For preventing duplicates'),
-        max_length=40, blank=True, default='')
+        max_length=40, blank=False, unique=True)
 
     def __unicode__(self):
-        return u'%s' % self.original_filename
+        return u'%s' % self.filename
 
     class Meta:
         verbose_name = _(u'File')
         verbose_name_plural = _(u'Files')
 
     def save(self, *args, **kwargs):
-        if not self.original_filename:
-            self.original_filename = self.file.file
+        if not self.filename:
+            self.filename = self.file.file
         super(File, self).save(*args, **kwargs)
+
+    def generate_file_hash(self):
+        sha = hashlib.sha1()
+        self.file.seek(0)
+        while True:
+            # digest size for sha1 is 160 bytes, so a multiple should do best.
+            buf = self.file.read(160000)
+            if not buf:
+                break
+            sha.update(buf)
+        self.file_hash = sha.hexdigest()
+        # to make sure later operations can read the whole file
+        self.file.seek(0)
 
     @property
     def is_image(self):
@@ -67,9 +85,9 @@ class File(models.Model):
     @property
     def label(self):
         if self.name:
-            return '%s (%s)' % (self.name, self.original_filename)
+            return '%s (%s)' % (self.name, self.filename)
         else:
-            return self.original_filename
+            return self.filename
 
     @property
     def admin_url(self):
@@ -166,6 +184,7 @@ def folderless_file_processing(sender, **kwargs):
         for type, definition in settings.FOLDERLESS_FILE_TYPES.iteritems():
             if instance.extension in definition.get("extensions"):
                 instance.type = type
+        instance.generate_file_hash()
 
 
 # do this with a signal, to catch them all

@@ -4,11 +4,12 @@ from django.contrib import admin
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.forms.models import modelform_factory
 
 from folderless.utils import handle_upload, UploadException
 from folderless.models import File
+from folderless.forms import FileAdminChangeFrom
 
 
 class FileDateFilter(admin.SimpleListFilter):
@@ -55,9 +56,11 @@ class FileAdmin(admin.ModelAdmin):
         FileTypeFilter, 'created', 'modified', 'extension', 'uploader', ]
     list_display_links = ['label', ]
     readonly_fields = [
-        'original_filename', 'type', 'extension', 'uploader', 'created',
-        'modified', 'sha1', ]
+        'filename', 'type', 'extension', 'uploader', 'created',
+        'modified', 'file_hash', ]
     search_fields = ['original_filename', 'name', ]
+
+    form = FileAdminChangeFrom
 
     class Media:
         vendor_path = settings.FOLDERLESS_STATIC_URL + 'js/vendor/'
@@ -126,9 +129,9 @@ class FileAdmin(admin.ModelAdmin):
         try:
             upload, filename, is_raw = handle_upload(request)
             FileForm = modelform_factory(
-                model=File, fields=('original_filename', 'uploader', 'file'))
+                model=File, fields=('filename', 'uploader', 'file'))
             uploadform = FileForm(
-                {'original_filename': filename, 'uploader': request.user.pk},
+                {'filename': filename, 'uploader': request.user.pk},
                 {'file': upload}
             )
 
@@ -144,9 +147,9 @@ class FileAdmin(admin.ModelAdmin):
                     for field, errors in list(uploadform.errors.items())
                 ])
                 raise UploadException(
-                    "AJAX request not valid: form invalid '%s'"
-                    % (form_errors,))
-
+                    _(u"File with same contents or same name (%(filename)s) already exists! Details: %(errors)s")
+                    % {'filename': filename, 'errors': form_errors, }
+                )
         except UploadException as e:
             return HttpResponse(json.dumps({'error': str(e)}),
                                 **response_params)

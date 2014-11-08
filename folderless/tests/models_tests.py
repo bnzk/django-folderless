@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import hashlib
 import os
 from django.test import TestCase
 from django.core.files import File as DjangoFile
@@ -28,7 +29,7 @@ class FolderlessModelsTests(TestCase):
     def _create_file(self):
         file_obj = DjangoFile(open(self.filename), name=self.image_name)
         image = File.objects.create(uploader=self.superuser,
-                                    original_filename=self.image_name,
+                                    filename=self.image_name,
                                     file=file_obj)
         return image
 
@@ -41,3 +42,18 @@ class FolderlessModelsTests(TestCase):
         self.assertEqual(True, os.path.isfile(file.file.path))
         file.delete()
         self.assertEqual(File.objects.count(), 0)
+
+    def test_file_hash_set(self):
+        file = self._create_file()
+        file.save()
+        os_file = open(self.filename, "r")
+        sha = hashlib.sha1()
+        os_file.seek(0)
+        while True:
+            # digest size for sha1 is 160 bytes, so a multiple should do best.
+            buf = os_file.read(160)
+            if not buf:
+                break
+            sha.update(buf)
+        file_hash = sha.hexdigest()
+        self.assertEqual(file.file_hash, file_hash)

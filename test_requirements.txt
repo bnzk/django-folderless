@@ -1,5 +1,6 @@
 tox
 django-nose
+nose-exclude
 coverage
 django-coverage
 ipdb

@@ -14,7 +14,7 @@ import django
 from django.conf import settings
 
 import coverage
-from fabric.api import abort, lcd, local
+from fabric.api import lcd, local  # , abort
 from fabric.colors import green, red
 
 import test_settings
@@ -57,7 +57,7 @@ def runtests(*test_args):
         # abort(red('Coverage is {0}%'.format(percentage)))
         print(red('Coverage is {0}%'.format(percentage)))
     else:
-    	print(green('Coverage is {0}%'.format(percentage)))
+        print(green('Coverage is {0}%'.format(percentage)))
 
     sys.exit(failures)
 

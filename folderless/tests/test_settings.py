@@ -30,6 +30,7 @@ ROOT_URLCONF = 'folderless.tests.urls'
 
 # media root is overridden when needed in tests
 MEDIA_ROOT = tempfile.mkdtemp(suffix='folderless_media_root')
+MEDIA_URL = "/media/"
 FILE_UPLOAD_TEMP_DIR = tempfile.mkdtemp(suffix='folderless_temp')
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(APP_ROOT, '../test_app_static')
@@ -48,7 +49,7 @@ COVERAGE_MODULE_EXCLUDES = [
     'migrations', 'fixtures', 'admin$', 'django_extensions',
 ]
 
-EXTERNAL_APPS = [
+EXTERNAL_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
@@ -60,12 +61,12 @@ EXTERNAL_APPS = [
     'django.contrib.sites',
     'django_nose',
     'easy_thumbnails',
-]
+)
 
-INTERNAL_APPS = [
+INTERNAL_APPS = (
     'folderless',
     'folderless.tests.test_app',
-]
+)
 
 MIDDLEWARE_CLASSES = DEFAULT_SETTINGS.MIDDLEWARE_CLASSES + (
     # just in case.
