@@ -92,8 +92,7 @@ class File(models.Model):
     @property
     def admin_url(self):
         return urlresolvers.reverse(
-            'admin:%s_%s_change' % (
-                self._meta.app_label, self._meta.model_name,),
+            'admin:folderless_file_change',
             args=(self.pk,)
         )
 
