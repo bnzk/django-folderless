@@ -2,9 +2,12 @@
 
 # from django.forms.models import modelform_factory
 import os
+import json
+
 from django.test import TestCase
 # from django.core.files import File as DjangoFile
 from django.core.urlresolvers import reverse
+
 from django.conf import settings
 
 from folderless.models import File
@@ -32,6 +35,12 @@ class FolderlessAdminUrlsTests(TestCase):
         response = self.client.get(reverse('admin:folderless_file_changelist'))
         self.assertEqual(response.status_code, 200)
 
+    # TODO: write field test with test app.
+    def test_file_field_empty(self):
+        pass
+        # response = self.client.get(reverse('admin:test_app_file_changelist'))
+        # self.assertEqual(response.status_code, 200)
+
     def test_file_upload(self):
         self.assertEqual(File.objects.count(), 0)
         self.client.post(
@@ -39,6 +48,12 @@ class FolderlessAdminUrlsTests(TestCase):
             {'ajax-file': open(self.filename), 'filename': self.image_name}
         )
         self.assertEqual(File.objects.count(), 1)
+
+    def test_non_post_upload_request(self):
+        self.assertEqual(File.objects.count(), 0)
+        response = self.client.get(reverse('admin:folderless-ajax_upload'))
+        data = json.loads(response.content)
+        self.assertEqual(data["success"], False)
 
     def test_prevent_duplicate_file_name_upload(self):
         self.assertEqual(File.objects.count(), 0)
@@ -65,3 +80,18 @@ class FolderlessAdminUrlsTests(TestCase):
             {'ajax-file': open(self.filename), 'filename': "second-%s" % self.image_name}
         )
         self.assertEqual(File.objects.count(), 1)
+
+    def test_prevent_duplicate_json_response(self):
+        self.assertEqual(File.objects.count(), 0)
+        self.client.post(
+            reverse('admin:folderless-ajax_upload'),
+            {'ajax-file': open(self.filename), 'filename': "first-%s" % self.image_name}
+        )
+        self.assertEqual(File.objects.count(), 1)
+        response = self.client.post(
+            reverse('admin:folderless-ajax_upload'),
+            {'ajax-file': open(self.filename), 'filename': "second-%s" % self.image_name}
+        )
+        data = json.loads(response.content)
+        self.assertEqual(data["success"], False)
+        self.assertGreaterEqual(data["errors"], 1)

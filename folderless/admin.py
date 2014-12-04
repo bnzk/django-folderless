@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
 from django.forms.models import modelform_factory
 
-from folderless.utils import handle_upload, UploadException
+from folderless.utils import handle_upload, get_valid_filename, UploadException
 from folderless.models import File
 from folderless.forms import FileAdminChangeFrom
 
@@ -131,7 +131,10 @@ class FileAdmin(admin.ModelAdmin):
             FileForm = modelform_factory(
                 model=File, fields=('filename', 'uploader', 'file'))
             uploadform = FileForm(
-                {'filename': filename, 'uploader': request.user.pk},
+                {
+                    'filename': get_valid_filename(filename),
+                    'uploader': request.user.pk
+                },
                 {'file': upload}
             )
 
@@ -142,16 +145,20 @@ class FileAdmin(admin.ModelAdmin):
                 return HttpResponse(
                     json.dumps(json_response), **response_params)
             else:
-                form_errors = '; '.join([
-                    '%s: %s' % (field, ', '.join(errors))
-                    for field, errors in list(uploadform.errors.items())
-                ])
-                raise UploadException(
-                    _(u"File with same contents or same name (%(filename)s) already exists! Details: %(errors)s")
-                    % {'filename': filename, 'errors': form_errors, }
-                )
+                return HttpResponse(
+                    json.dumps({
+                        'success': False,
+                        'message': _(u"Duplicate detected: File with same contents or same name (%(filename)s) already exists. File was not uploaded.") % {'filename': filename, },
+                        'errors': uploadform.errors
+                    }),
+                    status=409,  # conflict
+                    **response_params)
         except UploadException as e:
-            return HttpResponse(json.dumps({'error': str(e)}),
-                                **response_params)
+            return HttpResponse(
+                json.dumps({
+                    'success': False,
+                    'message': str(e)
+                }),
+                **response_params)
 
 admin.site.register(File, FileAdmin)

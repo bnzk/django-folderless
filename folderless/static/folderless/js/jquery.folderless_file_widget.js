@@ -6,7 +6,7 @@
 			var _self = $(this);
             var browse_button = _self.find(".folderless_browser");
             var upload_button = _self.find(".folderless_uploader");
-            var upload_info = _self.find(".folderless_upload_info");
+            var upload_info = _self.find(".folderless_widget_upload_info");
             var remove_button = _self.find(".folderless_remove");
             var edit_button = _self.find(".folderless_edit");
             var unknown_img = _self.find(".folderless_unknown");
@@ -36,11 +36,17 @@
                         upload_info.show(0);
                         browse_button.hide(0);
                         upload_button.hide(0);
-                        remove_file();
                         data.submit();
                     },
                     done: function (e, data) {
-                        update_file_info_n_interface(data.result);
+                        remove_file();
+                        update_file_info(data.result);
+                        update_interface();
+                    },
+                    fail: function (e, data) {
+                        var info = jQuery.parseJSON(data.jqXHR.responseText);
+                        alert(info.message);
+                        update_interface();
                     },
                     progressall: function (e, data) {
                         var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -50,18 +56,22 @@
                 remove_button.click(remove_file);
             }
 
-            var update_file_info_n_interface = function(data) {
-                thumb.attr("src", data.thumbnail_field);
-                thumb.attr("alt", data.label);
-                label.html(data.label);
-                raw_id_field.val(data.id);
-                file_link.attr("href", data.file_url);
-                edit_button.show(0);
-                edit_button.attr("href", data.edit_url);
-                remove_button.show(0);
+            var update_interface = function() {
+                if (raw_id_field.val()) {
+                    edit_button.show(0);
+                    remove_button.show(0);
+                }
                 browse_button.show(0);
                 upload_button.show(0);
                 upload_info.hide(0);
+            }
+            var update_file_info = function(data) {
+                raw_id_field.val(data.id);
+                thumb.attr("src", data.thumbnail_field);
+                thumb.attr("alt", data.label);
+                edit_button.attr("href", data.edit_url);
+                file_link.attr("href", data.file_url);
+                label.html(data.label);
             }
 
             var raw_id_changed = function() {
@@ -73,7 +83,7 @@
                 ajax_request = $.get(url, data,
                     function(data, textStatus, xhr) {
                         ajax_request = false;
-                        update_file_info_n_interface(data);
+                        update_file_info(data);
                     });
 
             }
