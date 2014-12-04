@@ -49,16 +49,16 @@
                       send: function (e, data) {
 
                       },
+                      done: function (e, data) {
+                          files_uploaded += 1;
+                          upload_info.find(".uploaded").html(files_uploaded);
+                          check_finished();
+                      },
                       fail: function (e, data) {
                           files_upload_error += 1;
                           var info = jQuery.parseJSON(data.jqXHR.responseText);
                           upload_errors_link.show(0).find("span").html(files_upload_error);
                           upload_errors_info.append(info.message + "\n\n");
-                          check_finished();
-                      },
-                      done: function (e, data) {
-                          files_uploaded += 1;
-                          upload_info.find(".uploaded").html(files_uploaded);
                           check_finished();
                       },
                       progressall: function (e, data) {

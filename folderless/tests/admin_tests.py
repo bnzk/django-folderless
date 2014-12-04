@@ -35,6 +35,12 @@ class FolderlessAdminUrlsTests(TestCase):
         response = self.client.get(reverse('admin:folderless_file_changelist'))
         self.assertEqual(response.status_code, 200)
 
+    # TODO: write field test with test app.
+    def test_file_field_empty(self):
+        pass
+        # response = self.client.get(reverse('admin:test_app_file_changelist'))
+        # self.assertEqual(response.status_code, 200)
+
     def test_file_upload(self):
         self.assertEqual(File.objects.count(), 0)
         self.client.post(
