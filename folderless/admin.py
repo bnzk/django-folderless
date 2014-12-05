@@ -110,9 +110,7 @@ class FileAdmin(admin.ModelAdmin):
         file_id = request.GET.get("file_id", None)
         file_obj = get_object_or_404(File, pk=file_id)
         mimetype = "application/json" if request.is_ajax() else "text/html"
-        content_type_key = 'content_type'
-        # 'mimetype' if DJANGO_1_4 else 'content_type'
-        response_params = {content_type_key: mimetype}
+        response_params = {'content_type': mimetype}
         return HttpResponse(json.dumps(file_obj.get_json_response()),
                             **response_params)
 

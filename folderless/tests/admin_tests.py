@@ -31,15 +31,26 @@ class FolderlessAdminUrlsTests(TestCase):
         response = self.client.get(reverse('admin:app_list', args=('folderless',)))
         self.assertEqual(response.status_code, 200)
 
-    def test_file_list(self):
+    def test_file_change_list(self):
+        # upload file, so we get an item in the list
+        self.client.post(
+            reverse('admin:folderless-ajax_upload'),
+            {'ajax-file': open(self.filename), 'filename': self.image_name}
+        )
         response = self.client.get(reverse('admin:folderless_file_changelist'))
         self.assertEqual(response.status_code, 200)
 
-    # TODO: write field test with test app.
-    def test_file_field_empty(self):
-        pass
-        # response = self.client.get(reverse('admin:test_app_file_changelist'))
-        # self.assertEqual(response.status_code, 200)
+    def test_file_change_view(self):
+        self.client.post(
+            reverse('admin:folderless-ajax_upload'),
+            {'ajax-file': open(self.filename), 'filename': self.image_name}
+        )
+        response = self.client.get(reverse('admin:folderless_file_change', args=(1, )))
+        self.assertEqual(response.status_code, 200)
+
+    def test_empty_file_field(self):
+        response = self.client.get(reverse('admin:test_app_testmodel_add'))
+        self.assertEqual(response.status_code, 200)
 
     def test_file_upload(self):
         self.assertEqual(File.objects.count(), 0)
@@ -48,6 +59,14 @@ class FolderlessAdminUrlsTests(TestCase):
             {'ajax-file': open(self.filename), 'filename': self.image_name}
         )
         self.assertEqual(File.objects.count(), 1)
+
+    def test_bad_file_upload(self):
+        self.assertEqual(File.objects.count(), 0)
+        response = self.client.post(
+            reverse('admin:folderless-ajax_upload'), {}
+        )
+        data = json.loads(response.content)
+        self.assertEqual(data["success"], False)
 
     def test_non_post_upload_request(self):
         self.assertEqual(File.objects.count(), 0)
