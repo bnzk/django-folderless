@@ -120,12 +120,11 @@ class FolderlessFileField(models.ForeignKey):
         # call ForeignKey.__init__ with the File model as parameter.
         if "on_delete" not in kwargs:
             kwargs['on_delete'] = models.PROTECT
-        return super(FolderlessFileField, self).__init__(
-            self.default_model_class, **kwargs)
+        kwargs['to'] = self.default_model_class
+        return super(FolderlessFileField, self).__init__(**kwargs)
 
     def deconstruct(self):
         name, path, args, kwargs = super(FolderlessFileField, self).deconstruct()
-        kwargs.pop("to")
         return name, path, args, kwargs
 
     def formfield(self, **kwargs):
