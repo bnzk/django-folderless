@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
-
 import os
+from distutils.version import LooseVersion
+
+import django
 from django.utils.text import get_valid_filename as get_valid_filename_django
 from django.template.defaultfilters import slugify
 # from django.core.files.uploadedfile import SimpleUploadedFile
+
+
+DJANGO_1_7_UP = LooseVersion(django.get_version()) >= LooseVersion('1.7')
 
 
 class UploadException(Exception):

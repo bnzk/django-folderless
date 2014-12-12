@@ -100,6 +100,7 @@ class FolderlessFileFormField(forms.ModelChoiceField):
     def __init__(self, rel, queryset, to_field_name, *args, **kwargs):
         self.rel = rel
         self.queryset = queryset
+        self.limit_choices_to = kwargs.pop("limit_choices_to", {})
         self.to_field_name = to_field_name
         self.max_value = None
         self.min_value = None
@@ -116,11 +117,16 @@ class FolderlessFileField(models.ForeignKey):
     default_model_class = File
 
     def __init__(self, **kwargs):
-        # we call ForeignKey.__init__ with the File model as parameter.
+        # call ForeignKey.__init__ with the File model as parameter.
         if "on_delete" not in kwargs:
             kwargs['on_delete'] = models.PROTECT
         return super(FolderlessFileField, self).__init__(
             self.default_model_class, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(FolderlessFileField, self).deconstruct()
+        kwargs.pop("to")
+        return name, path, args, kwargs
 
     def formfield(self, **kwargs):
         # This is a fairly standard way to set up some defaults
@@ -130,6 +136,7 @@ class FolderlessFileField(models.ForeignKey):
             'rel': self.rel,
         }
         defaults.update(kwargs)
+        print defaults
         return super(FolderlessFileField, self).formfield(**defaults)
 
     def south_field_triple(self):
