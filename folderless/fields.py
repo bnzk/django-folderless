@@ -136,7 +136,6 @@ class FolderlessFileField(models.ForeignKey):
             'rel': self.rel,
         }
         defaults.update(kwargs)
-        print defaults
         return super(FolderlessFileField, self).formfield(**defaults)
 
     def south_field_triple(self):

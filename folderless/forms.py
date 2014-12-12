@@ -9,4 +9,3 @@ class FileAdminChangeFrom(forms.ModelForm):
     class Meta:
         model = File
         exclude = []  # ("file_hash", "original_filename")
-
