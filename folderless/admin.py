@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import json
 
 from django.contrib import admin
@@ -13,7 +14,7 @@ from folderless.forms import FileAdminChangeFrom
 
 
 class FileDateFilter(admin.SimpleListFilter):
-    title = _(u'Extension')
+    title = _('Extension')
     parameter_name = 'original_filename__iendswith'
 
     def lookups(self, request, model_admin):
@@ -28,7 +29,7 @@ class FileDateFilter(admin.SimpleListFilter):
 
 
 class FileTypeFilter(admin.SimpleListFilter):
-    title = _(u'Type')
+    title = _('Type')
     parameter_name = 'type__exact'
 
     def lookups(self, request, model_admin):

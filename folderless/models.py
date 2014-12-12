@@ -1,7 +1,10 @@
 # coding: utf-8
 
+from __future__ import unicode_literals
 import hashlib
 import os
+
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.core import urlresolvers
 from django.db.models.signals import pre_save, pre_delete
@@ -16,6 +19,7 @@ from conf import settings
 OTHER_TYPE = 'other'
 
 
+@python_2_unicode_compatible
 class File(models.Model):
     file = ThumbnailerField(
         _('File'), upload_to=settings.FOLDERLESS_UPLOAD_TO,
@@ -47,8 +51,8 @@ class File(models.Model):
         _('Checksum'), help_text=_(u'For preventing duplicates'),
         max_length=40, blank=False, unique=True)
 
-    def __unicode__(self):
-        return u'%s' % self.filename
+    def __str__(self):
+        return '%s' % self.filename
 
     class Meta:
         verbose_name = _(u'File')
