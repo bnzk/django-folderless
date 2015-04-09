@@ -19,6 +19,7 @@
             var ajax_request = false;
 
             var init = function() {
+                _self.addClass("folderless_widget_initialized")
                 // cleanup from rawidfield
                 //_self.find(".add-another").hide(0);
                 //console.log(_self.attr("data-field-name"));

@@ -13,7 +13,7 @@
 </span> )
       </span>
       <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class="addlink folderless_uploader">
-        {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+        {% trans "Upload new file" %}
       </a>
       {% csrf_token %}
 

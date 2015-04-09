@@ -1,6 +1,6 @@
 {% load i18n thumbnail %}{% spaceless %}
 
-<div id="{{ widget_id }}" class="widget-wrap-{{ name }}" data-field-name="{{ name }}">
+<div id="{{ widget_id }}" class="widget-wrap-{{ name }}" data-widget="folderless_file" data-field-name="{{ name }}">
   <div class="folderless_raw_id_field  folderless_hidden">{{ hidden_input }}</div>
   <img class="folderless_hidden folderless_unknown" src="{{ admin_static }}img/icon-unknown.gif" alt="Browse or upload a file">
 
@@ -66,9 +66,11 @@ console.log("FL jquery");
 console.log(folderless_jquery);
 */
 
+/*
 folderless_jquery(document).ready(function($) {
     $('.widget-wrap-{{ name }}').folderless_file_widget();
 });
+*/
 
 </script>
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-folderless\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-20 00:20+0200\n"
+"POT-Creation-Date: 2015-04-09 11:39+0200\n"
 "PO-Revision-Date: 2014-04-19 21:23+0000\n"
 "Last-Translator: bnzk <bnzk@bnzk.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:15 models.py:34
+#: admin.py:17 models.py:49
 msgid "Extension"
 msgstr "Extension"
 
-#: admin.py:26
+#: admin.py:32
 msgid "Type"
 msgstr "Type"
+
+#: admin.py:150
+#, python-format
+msgid ""
+"Duplicate detected: File with same contents or same name (%(filename)s) "
+"already exists. File was not uploaded."
+msgstr ""
 
 #: conf.py:24
 msgid "Image"
@@ -61,99 +68,124 @@ msgstr "Spreadsheet"
 msgid "Presentation"
 msgstr "Presentation"
 
-#: models.py:19
-msgid "Uploader"
-msgstr "Uploader"
-
-#: models.py:21
-msgid "Created"
-msgstr "Created"
-
-#: models.py:23
-msgid "Modified"
-msgstr "Modified"
-
-#: models.py:24
-msgid "Title"
-msgstr "Title"
-
-#: models.py:25
-msgid "Author"
-msgstr "Author"
-
-#: models.py:26
-msgid "Copyright"
-msgstr "Copyright"
-
-#: models.py:28
-msgid "File type"
-msgstr "File type"
-
-#: models.py:30 models.py:41
+#: models.py:25 models.py:58
 msgid "File"
 msgstr "File"
 
-#: models.py:33
-msgid "Original filename"
-msgstr "Original filename"
+#: models.py:29
+msgid "name"
+msgstr ""
+
+#: models.py:31
+#, fuzzy
+#| msgid "File"
+msgid "Filename"
+msgstr "File"
+
+#: models.py:32
+msgid "Use for renaming your file on the server"
+msgstr ""
 
 #: models.py:35
+msgid "Author"
+msgstr "Author"
+
+#: models.py:37
+msgid "Copyright"
+msgstr "Copyright"
+
+#: models.py:39
+msgid "File type"
+msgstr "File type"
+
+#: models.py:43
+msgid "Uploader"
+msgstr "Uploader"
+
+#: models.py:45
+msgid "Created"
+msgstr "Created"
+
+#: models.py:47
+msgid "Modified"
+msgstr "Modified"
+
+#: models.py:51
 msgid "Checksum"
 msgstr "Checksum"
 
-#: models.py:35
+#: models.py:51
 msgid "For preventing duplicates"
 msgstr "For preventing duplicates"
 
-#: models.py:42
+#: models.py:59
 msgid "Files"
 msgstr "Files"
 
-#: models.py:94
+#: models.py:130
 msgid "Thumb"
 msgstr ""
 
-#: models.py:109
+#: models.py:145
 msgid "Referenced?"
 msgstr ""
-
-#: templates/admin/folderless/file_widget.html:18
-msgid "no file selected"
-msgstr "no file selected"
-
-#: templates/admin/folderless/file_widget.html:25
-#: templates/admin/folderless/file_widget.html:26
-#: templates/admin/folderless/file_widget.html:27
-msgid "Browse"
-msgstr "Browse"
-
-#: templates/admin/folderless/file_widget.html:32
-#: templates/admin/folderless/file_widget.html:33
-msgid "Upload"
-msgstr "Upload"
-
-#: templates/admin/folderless/file_widget.html:40
-#: templates/admin/folderless/file_widget.html:41
-msgid "Edit"
-msgstr "Edit"
-
-#: templates/admin/folderless/file_widget.html:46
-#: templates/admin/folderless/file_widget.html:47
-msgid "Remove"
-msgstr "Remove"
 
 #: templates/admin/folderless/file/change_list.html:9
 msgid "of"
 msgstr "of"
 
-#: templates/admin/folderless/file/change_list.html:11
-msgid "errors"
-msgstr "errors"
+#: templates/admin/folderless/file/change_list.html:10
+#, fuzzy
+#| msgid "Uploader"
+msgid "uploaded"
+msgstr "Uploader"
 
-#: templates/admin/folderless/file/change_list.html:14
-#, python-format
-msgid "Add %(name)s"
-msgstr "Add %(name)s"
+#: templates/admin/folderless/file/change_list.html:11
+msgid "duplicates/errors"
+msgstr ""
+
+#: templates/admin/folderless/file/change_list.html:16
+#, fuzzy
+#| msgid "Uploader"
+msgid "Upload new file"
+msgstr "Uploader"
+
+#: templates/admin/folderless/file_widget.html:21
+msgid "no file selected"
+msgstr "no file selected"
+
+#: templates/admin/folderless/file_widget.html:28
+#: templates/admin/folderless/file_widget.html:29
+#: templates/admin/folderless/file_widget.html:30
+msgid "Browse"
+msgstr "Browse"
+
+#: templates/admin/folderless/file_widget.html:35
+#: templates/admin/folderless/file_widget.html:36
+msgid "Upload"
+msgstr "Upload"
+
+#: templates/admin/folderless/file_widget.html:41
+#: templates/admin/folderless/file_widget.html:42
+msgid "Edit"
+msgstr "Edit"
+
+#: templates/admin/folderless/file_widget.html:47
+#: templates/admin/folderless/file_widget.html:48
+msgid "Remove"
+msgstr "Remove"
+
+#~ msgid "Add %(name)s"
+#~ msgstr "Add %(name)s"
+
+#~ msgid "Title"
+#~ msgstr "Title"
+
+#~ msgid "Original filename"
+#~ msgstr "Original filename"
+
+#~ msgid "errors"
+#~ msgstr "errors"
 
 #~ msgid "file"
 #~ msgstr "file"
