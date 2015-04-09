@@ -89,6 +89,7 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.fileupload.js',
             settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_file_widget.js',
             settings.FOLDERLESS_STATIC_URL + 'js/popup_handling.js',  # in popup, we call "opener.dismisss....
+            settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_widget_init.js',
             settings.FOLDERLESS_STATIC_URL + 'js/folderless_jquery_namespace.js',  # for the moment!
         )
         css = {

@@ -1,6 +1,6 @@
 
 (function($){
-    // ready!
+    // ready
     $(function() {
 
         $('.inline-group').each(function(index, inline) {

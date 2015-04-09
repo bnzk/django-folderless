@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from models import TestModel, TestGallery, TestGalleryEntry
-from folderless.inlines import FolderlessFileInlineMixin
+
 
 class TestModelAdmin(admin.ModelAdmin):
     raw_id_fields = ("user", )
@@ -9,8 +9,7 @@ class TestModelAdmin(admin.ModelAdmin):
 admin.site.register(TestModel, TestModelAdmin)
 
 
-
-class TestGalleryEntryInline(admin.StackedInline, FolderlessFileInlineMixin):
+class TestGalleryEntryInline(admin.StackedInline):
     model = TestGalleryEntry
     extra = 1
 
