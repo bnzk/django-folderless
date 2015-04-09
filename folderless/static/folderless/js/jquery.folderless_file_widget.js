@@ -22,9 +22,9 @@
                 _self.addClass("folderless_widget_initialized")
                 // cleanup from rawidfield
                 //_self.find(".add-another").hide(0);
+                $("#add_id_" + raw_id_field.attr("name")).hide(0);
                 //console.log(_self.attr("data-field-name"));
                 //console.log($("#add_id_" + _self.attr("data-field-name")));
-                $("#add_id_" + _self.attr("data-field-name")).hide(0);
                 // return from browse
                 raw_id_field.change(raw_id_changed);
                 // uploader
@@ -73,6 +73,7 @@
                 edit_button.attr("href", data.edit_url);
                 file_link.attr("href", data.file_url);
                 label.html(data.label);
+                update_interface();
             }
 
             var raw_id_changed = function() {
