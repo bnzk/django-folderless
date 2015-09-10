@@ -57,7 +57,7 @@ class FileAdmin(admin.ModelAdmin):
         FileTypeFilter, 'created', 'modified', 'extension', 'uploader', ]
     list_display_links = ['label', ]
     readonly_fields = [
-        'filename', 'type', 'extension', 'uploader', 'created',
+        'type', 'extension', 'uploader', 'created',
         'modified', 'file_hash', ]
     search_fields = ['original_filename', 'name', ]
 

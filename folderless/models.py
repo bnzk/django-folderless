@@ -3,7 +3,8 @@
 from __future__ import unicode_literals
 import hashlib
 import os
-
+from django.core.exceptions import ValidationError
+from django.core.files.base import File as DjangoFile
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.core import urlresolvers
@@ -62,6 +63,16 @@ class File(models.Model):
         if not self.filename:
             self.filename = self.file.file
         super(File, self).save(*args, **kwargs)
+
+    # you should not change extensions!
+    def clean(self, *args, **kwargs):
+        super(File, self).clean(*args, **kwargs)
+        if (self.id):
+            old_instance = File.objects.get(pk=self.id)
+            old_name, old_extension = os.path.splitext(old_instance.filename)
+            new_name, new_extension = os.path.splitext(self.filename)
+            if not old_extension.lower() == new_extension.lower():
+                raise ValidationError(_("File extension must stay the same."))
 
     def generate_file_hash(self):
         sha = hashlib.sha1()
@@ -176,6 +187,12 @@ class File(models.Model):
 
 @receiver(pre_save, sender=File, dispatch_uid="folderless_file_processing")
 def folderless_file_processing(sender, **kwargs):
+    """
+    what we do here:
+    - determine file type, set it.
+    - generate file hash
+    - check for file renames
+    """
     instance = kwargs.get("instance")
     if instance.file:
         name, extension = os.path.splitext(instance.file.name)
@@ -188,7 +205,14 @@ def folderless_file_processing(sender, **kwargs):
             if instance.extension in definition.get("extensions"):
                 instance.type = type
         instance.generate_file_hash()
-
+        if instance.id:
+            old_instance = File.objects.get(pk=instance.id)
+            if not old_instance.filename == instance.filename:
+                # rename!
+                new_file_path = os.path.join(os.path.dirname(instance.file.path),
+                                             instance.filename, )
+                os.rename(instance.file.path, new_file_path)
+                instance.file = DjangoFile(open(new_file_path))
 
 # do this with a signal, to catch them all
 @receiver(pre_delete, sender=File)
