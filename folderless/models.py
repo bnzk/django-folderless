@@ -211,8 +211,13 @@ def folderless_file_processing(sender, **kwargs):
                 # rename!
                 new_file_path = os.path.join(os.path.dirname(instance.file.path),
                                              instance.filename, )
-                os.rename(instance.file.path, new_file_path)
-                instance.file = DjangoFile(open(new_file_path))
+                new_file = DjangoFile(open(instance.file.path, mode='rb'))
+                instance.file.delete(False)  # remove including thumbs
+                instance.file.save(instance.filename, new_file, save=False)
+
+                #os.rename(instance.file.path, new_file_path)
+                #instance.file.delete(False)
+                #instance.file = DjangoFile(open(new_file_path))
 
 # do this with a signal, to catch them all
 @receiver(pre_delete, sender=File)
