@@ -53,6 +53,6 @@ Have a look at the ``folderless/tests/test_app/models.py`` for some example.
 Credits / Idea
 --------------
 
-many similiar things already exist. no wonder this project is heavily experienced by https://github.com/stefanfoulis/django-filer, and to some extent, feincms.module.medialibrary and https://github.com/samluescher/django-media-tree. initial idea credits: https://github.com/wullerot/ (manipulated django-filer to hide folders completely). more ideas: http://de.slideshare.net/motivesystems/slideshare-upload-gartner-pcc-presentation-going-folderless-with-metadata
+main repository: https://github.com/benzkji/django-folderless . many similiar things already exist. no wonder this project is heavily experienced by https://github.com/stefanfoulis/django-filer, and to some extent, feincms.module.medialibrary and https://github.com/samluescher/django-media-tree. initial idea credits: https://github.com/wullerot/ (manipulated django-filer to hide folders completely). more ideas: http://de.slideshare.net/motivesystems/slideshare-upload-gartner-pcc-presentation-going-folderless-with-metadata
 
 this project uses http://semver.org.
