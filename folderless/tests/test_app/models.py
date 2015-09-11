@@ -16,16 +16,16 @@ class TestModel(models.Model):
 
 
 class TestGallery(models.Model):
-    title = models.CharField('Title', null=True, blank=True, default='', max_length=255 )
+    title = models.CharField('Title', null=True, blank=True, default='', max_length=255)
 
     def __unicode__(self):
-        return self.title;
+        return self.title
 
 
 class TestGalleryEntry(models.Model):
-    #file = FilerFileField(null=True, blank=True, default=None, verbose_name=_("File"))
+    # file = FilerFileField(null=True, blank=True, default=None, verbose_name=_("File"))
     image = FolderlessFileField(null=True, blank=True, default=None, verbose_name=("File"))
-    description = models.CharField('description', null=True, blank=True, default='', max_length=255 )
+    description = models.CharField('description', null=True, blank=True, default='', max_length=255)
     gallery = models.ForeignKey(TestGallery)
 
     class Meta:
