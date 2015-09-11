@@ -55,7 +55,7 @@ COVERAGE_MODULE_EXCLUDES = [
 
 EXTERNAL_APPS = (
     'django.contrib.admin',
-    'django.contrib.admindocs',
+    # 'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
@@ -78,9 +78,7 @@ MIDDLEWARE_CLASSES = DEFAULT_SETTINGS.MIDDLEWARE_CLASSES + (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.doc.XViewMiddleware',
 )
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
