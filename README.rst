@@ -47,7 +47,6 @@ Have a look at the ``folderless/tests/test_app/models.py`` for some example.
     from folderless.fields import FolderlessFileField
 
     class TestModel(models.Model):
-        dummy = models.CharField('dummy', max_length=255, blank=True)
         file = FolderlessFileField(blank=True, null=True)
 
 
