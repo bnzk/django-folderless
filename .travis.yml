@@ -8,6 +8,6 @@ env:
 install:
   - pip install .
   - pip install -q Django==$DJANGO_VERSION
-  - pip install -r requirements.txt
+  - pip install -r test_requirements.txt
 # command to run tests
 script: python folderless/tests/runtests.py
