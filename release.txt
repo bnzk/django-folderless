@@ -1,0 +1,11 @@
+
+git flow release start 0.2.1
+version bump in folderless/__init__.py
+git flow release finish 0.2.1
+git push --all; git push --tags
+python setup.py sdist
+# no wheel for now?! python setup.py bdist_wheel --universal
+python setup.py register -r pypitest
+twine upload dist/* -r pypitest
+python setup.py register -r pypi
+twine upload dist/*
