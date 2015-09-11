@@ -55,7 +55,7 @@ COVERAGE_MODULE_EXCLUDES = [
 
 EXTERNAL_APPS = (
     'django.contrib.admin',
-    'django.contrib.admindocs',
+    # 'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
