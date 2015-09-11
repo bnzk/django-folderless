@@ -41,8 +41,7 @@ class NoseCoverageTestRunner(CoverageRunner, NoseTestSuiteRunner):
 
 
 def runtests(*test_args):
-    failures = NoseCoverageTestRunner(verbosity=2, interactive=True,
-                                      exclude='folderless/south_migrations').run_tests(test_args)
+    failures = NoseCoverageTestRunner(verbosity=2, interactive=True).run_tests(test_args)
 
     with lcd(settings.COVERAGE_REPORT_HTML_OUTPUT_DIR):
         total_line = local('grep -n Total index.html', capture=True)
