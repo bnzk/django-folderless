@@ -7,6 +7,7 @@ django-folderless
 simple media manager for django, folderless.
 
 key features:
+
 - filterable file list with multi upload possibility
 - FolderlessFileField, as a replacement for FileField, with instant upload possibility
 
@@ -19,8 +20,6 @@ To get the latest stable release from PyPi
 .. code-block:: bash
 
     pip install django-folderless
-
-To get the latest commit from GitHub
 
 Add ``folderless`` to your ``INSTALLED_APPS``
 
