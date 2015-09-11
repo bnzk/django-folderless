@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 import os
 
-
+# not so bad: http://joebergantine.com/blog/2015/jul/17/releasing-package-pypi/
 version = __import__('folderless').__version__
 
 
