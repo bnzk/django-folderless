@@ -22,7 +22,8 @@ import test_settings
 
 if not settings.configured:
     settings.configure(**test_settings.__dict__)
-if '1.7' in django.get_version():
+django_version = django.get_version()
+if '1.7' in django_version or '1.8' in django_version:
     django.setup()
 
 
@@ -40,8 +41,8 @@ class NoseCoverageTestRunner(CoverageRunner, NoseTestSuiteRunner):
 
 
 def runtests(*test_args):
-    failures = NoseCoverageTestRunner(verbosity=2, interactive=True).run_tests(
-        test_args)
+    failures = NoseCoverageTestRunner(verbosity=2, interactive=True,
+                                      exclude='folderless/south_migrations').run_tests(test_args)
 
     with lcd(settings.COVERAGE_REPORT_HTML_OUTPUT_DIR):
         total_line = local('grep -n Total index.html', capture=True)
