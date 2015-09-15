@@ -42,7 +42,7 @@ if not settings.configured:
         'DATABASES': {'default': database}
     })
 
-    print test_settings
+    print test_settings_dict
 
     settings.configure(**test_settings_dict)
 django_version = django.get_version()
