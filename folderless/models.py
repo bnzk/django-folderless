@@ -16,6 +16,7 @@ from easy_thumbnails.fields import ThumbnailerField
 from easy_thumbnails.files import get_thumbnailer
 
 from conf import settings
+from folderless.utils import get_valid_filename
 
 OTHER_TYPE = 'other'
 
@@ -69,10 +70,12 @@ class File(models.Model):
         super(File, self).clean(*args, **kwargs)
         if (self.id):
             old_instance = File.objects.get(pk=self.id)
-            old_name, old_extension = os.path.splitext(old_instance.filename)
-            new_name, new_extension = os.path.splitext(self.filename)
-            if not old_extension.lower() == new_extension.lower():
-                raise ValidationError(_("File extension must stay the same."))
+            if not old_instance.filename == self.filename:
+                self.filename = get_valid_filename(self.filename)
+                old_name, old_extension = os.path.splitext(old_instance.filename)
+                new_name, new_extension = os.path.splitext(self.filename)
+                if not old_extension.lower() == new_extension.lower():
+                    raise ValidationError(_("File extension must stay the same."))
 
     def generate_file_hash(self):
         sha = hashlib.sha1()

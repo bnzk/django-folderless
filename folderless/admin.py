@@ -59,7 +59,7 @@ class FileAdmin(admin.ModelAdmin):
     readonly_fields = [
         'type', 'extension', 'uploader', 'created',
         'modified', 'file_hash', ]
-    search_fields = ['original_filename', 'name', ]
+    search_fields = ['filename', 'name', ]
 
     form = FileAdminChangeFrom
 

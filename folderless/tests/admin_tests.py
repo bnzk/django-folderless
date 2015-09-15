@@ -45,7 +45,8 @@ class FolderlessAdminUrlsTests(TestCase):
             reverse('admin:folderless-ajax_upload'),
             {'ajax-file': open(self.filename), 'filename': self.image_name}
         )
-        response = self.client.get(reverse('admin:folderless_file_change', args=(1, )))
+        file_id = File.objects.all()[0].id
+        response = self.client.get(reverse('admin:folderless_file_change', args=(file_id, )))
         self.assertEqual(response.status_code, 200)
 
     def test_empty_file_field(self):

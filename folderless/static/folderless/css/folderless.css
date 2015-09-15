@@ -56,3 +56,15 @@ body .folderless_hidden
     background-color: transparent;
     color: #333;
 }
+
+/* override djangocms-admintools styles! */
+.related-lookup {
+    overflow: visible;
+    width: auto !important;
+    background: none !important;
+}
+
+/* since Django 1.8 ?! */
+.related-widget-wrapper-link {
+    display: none;
+}
