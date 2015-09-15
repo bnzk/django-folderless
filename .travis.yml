@@ -23,7 +23,7 @@ before_script:
 # command to install dependencies
 install:
   - pip install .
-  - pip install -q Django==$DJANGO_VERSION
+  - pip install -q Django==$DJANGO
   - pip install -r test_requirements.txt
 
 before_script:
