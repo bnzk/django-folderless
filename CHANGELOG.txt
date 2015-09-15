@@ -1,0 +1,11 @@
+
+==== 0.2.2 (2015-09-15) ===
+
+- file rename
+
+
+==== 0.2.3 (2015-09-15) ===
+
+- fixed search in file change list
+- fixed django 1.8 FolderlessFileField layout
+- some testsuite/travis enhancements
