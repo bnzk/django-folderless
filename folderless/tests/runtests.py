@@ -7,6 +7,7 @@ Via ``settings.configure`` you will be able to set all necessary settings
 for your app and run the tests as if you were calling ``./manage.py test``.
 
 """
+import os
 import re
 import sys
 
@@ -21,6 +22,25 @@ import test_settings
 
 
 if not settings.configured:
+
+    test_db = os.environ.get('DB', 'sqlite')
+    database = test_settings["DATABASES"]["default"]
+    if test_db == 'mysql':
+        database = {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'folderless_test',
+            'USER': 'root',
+        }
+    elif test_db == 'postgres':
+        database = {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'USER': 'postgres',
+            'NAME': 'folderless_test',
+        }
+    test_settings.update({
+        'DATABASES': {'default': database}
+    })
+
     settings.configure(**test_settings.__dict__)
 django_version = django.get_version()
 if '1.7' in django_version or '1.8' in django_version:
