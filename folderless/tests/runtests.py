@@ -23,8 +23,9 @@ import test_settings
 
 if not settings.configured:
 
+    test_settings_dict = test_settings.__dict__
     test_db = os.environ.get('DB', 'sqlite')
-    database = test_settings["DATABASES"]["default"]
+    database = test_settings_dict["DATABASES"]["default"]
     if test_db == 'mysql':
         database = {
             'ENGINE': 'django.db.backends.mysql',
@@ -37,11 +38,11 @@ if not settings.configured:
             'USER': 'postgres',
             'NAME': 'folderless_test',
         }
-    test_settings.update({
+    test_settings_dict.update({
         'DATABASES': {'default': database}
     })
 
-    settings.configure(**test_settings.__dict__)
+    settings.configure(**test_settings_dict)
 django_version = django.get_version()
 if '1.7' in django_version or '1.8' in django_version:
     django.setup()
