@@ -40,14 +40,11 @@ if not settings.configured:
     test_settings_dict.update({
         'DATABASES': {'default': database}
     })
-
     settings.configure(**test_settings_dict)
-
 
 django_version = django.get_version()
 if '1.7' in django_version or '1.8' in django_version:
     django.setup()
-
 
 from django_coverage.coverage_runner import CoverageRunner
 from django_nose import NoseTestSuiteRunner
