@@ -42,6 +42,8 @@ if not settings.configured:
         'DATABASES': {'default': database}
     })
 
+    print test_settings
+
     settings.configure(**test_settings_dict)
 django_version = django.get_version()
 if '1.7' in django_version or '1.8' in django_version:
