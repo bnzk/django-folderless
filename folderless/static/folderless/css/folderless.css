@@ -7,11 +7,19 @@ form .form-row .related-lookup.folderless_browser img {
     display: inline !important;
 
 }
+form .form-row[class*=image] .related-lookup.folderless_browser:hover {
+    background-color: transparent !important;
+}
+form .form-row[class*=image] .related-lookup.folderless_browser::before {
+    display: none !important;
+}
 form .form-row[class*=image] .related-lookup.folderless_browser {
     float: none;
     width: auto;
     height: auto;
-    border: transparent;
+    color: inherit !important;
+    border: transparent !important;
+    vertical-align: middle !important;
     /* padding / margin!?? */
     margin: 0 !important;
     margin-right: 15px !important;
