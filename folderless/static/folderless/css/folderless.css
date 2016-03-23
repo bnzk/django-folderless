@@ -1,4 +1,24 @@
 
+/* hacks djangocms-admin-style */
+.object-tools li form {
+    padding: 0;
+}
+form .form-row .related-lookup.folderless_browser img {
+    display: inline !important;
+
+}
+form .form-row[class*=image] .related-lookup.folderless_browser {
+    float: none;
+    width: auto;
+    height: auto;
+    border: transparent;
+    /* padding / margin!?? */
+    margin: 0;
+    margin-right: 15px;
+    padding: 0;
+}
+
+/* end hacks */
 
 body .folderless_hidden
 {
