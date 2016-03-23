@@ -17,7 +17,8 @@ form .form-row[class*=image] .related-lookup.folderless_browser {
     float: none;
     width: auto;
     height: auto;
-    color: inherit !important;
+    /* todo: target admin-style and vanilla admin accordingly! */
+    color: #0bf !important;
     border: transparent !important;
     vertical-align: middle !important;
     /* padding / margin!?? */
@@ -26,7 +27,6 @@ form .form-row[class*=image] .related-lookup.folderless_browser {
     padding: 0 !important;
     font-size: inherit !important;
 }
-
 /* end hacks */
 
 body .folderless_hidden
