@@ -7,7 +7,8 @@ form .form-row .related-lookup.folderless_browser img {
     display: inline !important;
 
 }
-form .form-row[class*=image] .related-lookup.folderless_browser:hover {
+form .form-row[class*=image] .related-lookup.folderless_browser:hover,
+form .form-row[class*=image] .related-lookup.folderless_browser:focus {
     background-color: transparent !important;
 }
 form .form-row[class*=image] .related-lookup.folderless_browser::before {
