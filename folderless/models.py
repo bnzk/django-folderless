@@ -1,7 +1,11 @@
 # coding: utf-8
 
+from __future__ import unicode_literals
 import hashlib
 import os
+from django.core.exceptions import ValidationError
+from django.core.files.base import File as DjangoFile
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.core import urlresolvers
 from django.db.models.signals import pre_save, pre_delete
@@ -12,10 +16,12 @@ from easy_thumbnails.fields import ThumbnailerField
 from easy_thumbnails.files import get_thumbnailer
 
 from conf import settings
+from folderless.utils import get_valid_filename
 
 OTHER_TYPE = 'other'
 
 
+@python_2_unicode_compatible
 class File(models.Model):
     file = ThumbnailerField(
         _('File'), upload_to=settings.FOLDERLESS_UPLOAD_TO,
@@ -47,8 +53,8 @@ class File(models.Model):
         _('Checksum'), help_text=_(u'For preventing duplicates'),
         max_length=40, blank=False, unique=True)
 
-    def __unicode__(self):
-        return u'%s' % self.filename
+    def __str__(self):
+        return '%s' % self.filename
 
     class Meta:
         verbose_name = _(u'File')
@@ -58,6 +64,18 @@ class File(models.Model):
         if not self.filename:
             self.filename = self.file.file
         super(File, self).save(*args, **kwargs)
+
+    # you should not change extensions!
+    def clean(self, *args, **kwargs):
+        super(File, self).clean(*args, **kwargs)
+        if (self.id):
+            old_instance = File.objects.get(pk=self.id)
+            if not old_instance.filename == self.filename:
+                self.filename = get_valid_filename(self.filename)
+                old_name, old_extension = os.path.splitext(old_instance.filename)
+                new_name, new_extension = os.path.splitext(self.filename)
+                if not old_extension.lower() == new_extension.lower():
+                    raise ValidationError(_("File extension must stay the same."))
 
     def generate_file_hash(self):
         sha = hashlib.sha1()
@@ -172,6 +190,12 @@ class File(models.Model):
 
 @receiver(pre_save, sender=File, dispatch_uid="folderless_file_processing")
 def folderless_file_processing(sender, **kwargs):
+    """
+    what we do here:
+    - determine file type, set it.
+    - generate file hash
+    - check for file renames
+    """
     instance = kwargs.get("instance")
     if instance.file:
         name, extension = os.path.splitext(instance.file.name)
@@ -184,9 +208,17 @@ def folderless_file_processing(sender, **kwargs):
             if instance.extension in definition.get("extensions"):
                 instance.type = type
         instance.generate_file_hash()
+        if instance.id:
+            old_instance = File.objects.get(pk=instance.id)
+            if not old_instance.filename == instance.filename:
+                # rename!
+                new_file = DjangoFile(open(instance.file.path, mode='rb'))
+                instance.file.delete(False)  # remove including thumbs
+                instance.file.save(instance.filename, new_file, save=False)
 
 
 # do this with a signal, to catch them all
 @receiver(pre_delete, sender=File)
 def cleanup_file_on_delete(sender, instance, **kwargs):
+    # includes thumbnails
     instance.file.delete(False)

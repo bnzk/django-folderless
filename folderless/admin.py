@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import json
 
 from django.contrib import admin
@@ -7,13 +8,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
 from django.forms.models import modelform_factory
 
-from folderless.utils import handle_upload, UploadException
+from folderless.utils import handle_upload, get_valid_filename, UploadException
 from folderless.models import File
 from folderless.forms import FileAdminChangeFrom
 
 
 class FileDateFilter(admin.SimpleListFilter):
-    title = _(u'Extension')
+    title = _('Extension')
     parameter_name = 'original_filename__iendswith'
 
     def lookups(self, request, model_admin):
@@ -28,7 +29,7 @@ class FileDateFilter(admin.SimpleListFilter):
 
 
 class FileTypeFilter(admin.SimpleListFilter):
-    title = _(u'Type')
+    title = _('Type')
     parameter_name = 'type__exact'
 
     def lookups(self, request, model_admin):
@@ -56,9 +57,9 @@ class FileAdmin(admin.ModelAdmin):
         FileTypeFilter, 'created', 'modified', 'extension', 'uploader', ]
     list_display_links = ['label', ]
     readonly_fields = [
-        'filename', 'type', 'extension', 'uploader', 'created',
+        'type', 'extension', 'uploader', 'created',
         'modified', 'file_hash', ]
-    search_fields = ['original_filename', 'name', ]
+    search_fields = ['filename', 'name', ]
 
     form = FileAdminChangeFrom
 
@@ -110,9 +111,7 @@ class FileAdmin(admin.ModelAdmin):
         file_id = request.GET.get("file_id", None)
         file_obj = get_object_or_404(File, pk=file_id)
         mimetype = "application/json" if request.is_ajax() else "text/html"
-        content_type_key = 'content_type'
-        # 'mimetype' if DJANGO_1_4 else 'content_type'
-        response_params = {content_type_key: mimetype}
+        response_params = {'content_type': mimetype}
         return HttpResponse(json.dumps(file_obj.get_json_response()),
                             **response_params)
 
@@ -131,7 +130,10 @@ class FileAdmin(admin.ModelAdmin):
             FileForm = modelform_factory(
                 model=File, fields=('filename', 'uploader', 'file'))
             uploadform = FileForm(
-                {'filename': filename, 'uploader': request.user.pk},
+                {
+                    'filename': get_valid_filename(filename),
+                    'uploader': request.user.pk
+                },
                 {'file': upload}
             )
 
@@ -142,16 +144,20 @@ class FileAdmin(admin.ModelAdmin):
                 return HttpResponse(
                     json.dumps(json_response), **response_params)
             else:
-                form_errors = '; '.join([
-                    '%s: %s' % (field, ', '.join(errors))
-                    for field, errors in list(uploadform.errors.items())
-                ])
-                raise UploadException(
-                    _(u"File with same contents or same name (%(filename)s) already exists! Details: %(errors)s")
-                    % {'filename': filename, 'errors': form_errors, }
-                )
+                return HttpResponse(
+                    json.dumps({
+                        'success': False,
+                        'message': _(u"Duplicate detected: File with same contents or same name (%(filename)s) already exists. File was not uploaded.") % {'filename': filename, },
+                        'errors': uploadform.errors
+                    }),
+                    status=409,  # conflict
+                    **response_params)
         except UploadException as e:
-            return HttpResponse(json.dumps({'error': str(e)}),
-                                **response_params)
+            return HttpResponse(
+                json.dumps({
+                    'success': False,
+                    'message': str(e)
+                }),
+                **response_params)
 
 admin.site.register(File, FileAdmin)

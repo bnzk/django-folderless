@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Translators:
-# bnzk <bnzk@bnzk.ch>, 2014
+# Ben Stähli <bnzk@bnzk.ch>, 2014-2015
+# Ben Stähli <bnzk@bnzk.ch>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: django-folderless\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-20 00:20+0200\n"
-"PO-Revision-Date: 2014-04-19 22:21+0000\n"
-"Last-Translator: bnzk <bnzk@bnzk.ch>\n"
+"POT-Creation-Date: 2015-04-09 11:39+0200\n"
+"PO-Revision-Date: 2015-04-09 09:40+0000\n"
+"Last-Translator: Ben Stähli <bnzk@bnzk.ch>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/django-folderless/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,13 +20,20 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:15 models.py:34
+#: admin.py:17 models.py:49
 msgid "Extension"
 msgstr "Erweiterung"
 
-#: admin.py:26
+#: admin.py:32
 msgid "Type"
 msgstr "Typ"
+
+#: admin.py:150
+#, python-format
+msgid ""
+"Duplicate detected: File with same contents or same name (%(filename)s) "
+"already exists. File was not uploaded."
+msgstr "Duplikat entdeckt: Datei mit identischem Inhalt oder Namen (%(filename)s) existiert bereits. Die Datei wurde nicht hochgeladen."
 
 #: conf.py:24
 msgid "Image"
@@ -63,99 +71,121 @@ msgstr "Tabelle"
 msgid "Presentation"
 msgstr "Präsentation"
 
-#: models.py:19
-msgid "Uploader"
-msgstr "Hochlader"
-
-#: models.py:21
-msgid "Created"
-msgstr "Erstellt"
-
-#: models.py:23
-msgid "Modified"
-msgstr "Geändert"
-
-#: models.py:24
-msgid "Title"
-msgstr "Titel"
-
-#: models.py:25
-msgid "Author"
-msgstr "Autor/Urheber"
-
-#: models.py:26
-msgid "Copyright"
-msgstr "Copyright"
-
-#: models.py:28
-msgid "File type"
-msgstr "Datei Typ"
-
-#: models.py:30 models.py:41
+#: models.py:25 models.py:58
 msgid "File"
 msgstr "Datei"
 
-#: models.py:33
-msgid "Original filename"
-msgstr "Originaler Dateiname"
+#: models.py:29
+msgid "name"
+msgstr "name"
+
+#: models.py:31
+#| msgid "File"
+msgid "Filename"
+msgstr "Dateiname"
+
+#: models.py:32
+msgid "Use for renaming your file on the server"
+msgstr "Zum umbenennen der Datei auf dem Server"
 
 #: models.py:35
+msgid "Author"
+msgstr "Autor/Urheber"
+
+#: models.py:37
+msgid "Copyright"
+msgstr "Copyright"
+
+#: models.py:39
+msgid "File type"
+msgstr "Datei Typ"
+
+#: models.py:43
+msgid "Uploader"
+msgstr "Hochlader"
+
+#: models.py:45
+msgid "Created"
+msgstr "Erstellt"
+
+#: models.py:47
+msgid "Modified"
+msgstr "Geändert"
+
+#: models.py:51
 msgid "Checksum"
 msgstr "Checksumme"
 
-#: models.py:35
+#: models.py:51
 msgid "For preventing duplicates"
 msgstr "Um Duplikate zu verhindern"
 
-#: models.py:42
+#: models.py:59
 msgid "Files"
 msgstr "Dateien"
 
-#: models.py:94
+#: models.py:130
 msgid "Thumb"
 msgstr "Vorschau"
 
-#: models.py:109
+#: models.py:145
 msgid "Referenced?"
 msgstr "Verwendet?"
-
-#: templates/admin/folderless/file_widget.html:18
-msgid "no file selected"
-msgstr "Keine Datei ausgewählt"
-
-#: templates/admin/folderless/file_widget.html:25
-#: templates/admin/folderless/file_widget.html:26
-#: templates/admin/folderless/file_widget.html:27
-msgid "Browse"
-msgstr "Durchsuchen"
-
-#: templates/admin/folderless/file_widget.html:32
-#: templates/admin/folderless/file_widget.html:33
-msgid "Upload"
-msgstr "Hochladen"
-
-#: templates/admin/folderless/file_widget.html:40
-#: templates/admin/folderless/file_widget.html:41
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: templates/admin/folderless/file_widget.html:46
-#: templates/admin/folderless/file_widget.html:47
-msgid "Remove"
-msgstr "Entfernen"
 
 #: templates/admin/folderless/file/change_list.html:9
 msgid "of"
 msgstr "von"
 
-#: templates/admin/folderless/file/change_list.html:11
-msgid "errors"
-msgstr "Fehler"
+#: templates/admin/folderless/file/change_list.html:10
+#| msgid "Uploader"
+msgid "uploaded"
+msgstr "hochgeladen"
 
-#: templates/admin/folderless/file/change_list.html:14
-#, python-format
-msgid "Add %(name)s"
-msgstr ""
+#: templates/admin/folderless/file/change_list.html:11
+msgid "duplicates/errors"
+msgstr "Duplikate/Fehler"
+
+#: templates/admin/folderless/file/change_list.html:16
+#| msgid "Uploader"
+msgid "Upload new file"
+msgstr "neue Datei hochladen"
+
+#: templates/admin/folderless/file_widget.html:21
+msgid "no file selected"
+msgstr "Keine Datei ausgewählt"
+
+#: templates/admin/folderless/file_widget.html:28
+#: templates/admin/folderless/file_widget.html:29
+#: templates/admin/folderless/file_widget.html:30
+msgid "Browse"
+msgstr "Durchsuchen"
+
+#: templates/admin/folderless/file_widget.html:35
+#: templates/admin/folderless/file_widget.html:36
+msgid "Upload"
+msgstr "Hochladen"
+
+#: templates/admin/folderless/file_widget.html:41
+#: templates/admin/folderless/file_widget.html:42
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: templates/admin/folderless/file_widget.html:47
+#: templates/admin/folderless/file_widget.html:48
+msgid "Remove"
+msgstr "Entfernen"
+
+#~ msgid "Add %(name)s"
+#~ msgstr "Add %(name)s"
+
+#~ msgid "Title"
+#~ msgstr "Title"
+
+#~ msgid "Original filename"
+#~ msgstr "Original filename"
+
+#~ msgid "errors"
+#~ msgstr "errors"
 
 #~ msgid "file"
 #~ msgstr "file"

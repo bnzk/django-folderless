@@ -9,4 +9,3 @@ fabric
 factory_boy
 mock
 selenium
-south

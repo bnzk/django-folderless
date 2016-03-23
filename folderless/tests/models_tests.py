@@ -57,3 +57,18 @@ class FolderlessModelsTests(TestCase):
             sha.update(buf)
         file_hash = sha.hexdigest()
         self.assertEqual(file.file_hash, file_hash)
+
+    def test_rename_file(self):
+        self.assertEqual(File.objects.count(), 0)
+        file = self._create_file()
+        old_path = file.file.path
+        file.filename = '1234.jpg'
+        file.save()
+        self.assertNotEqual(old_path, file.file.path,
+                            "File has still the same filename/path (%s)" % old_path)
+        self.assertTrue('1234.jpg' in file.file.path, "File was not renamed to 1234.jpg")
+        self.assertEqual(True, os.path.isfile(file.file.path), "File does not exist as renamed.")
+        self.assertEqual(False, os.path.isfile(old_path),
+                         "File was renamed, but original is still there!")
+        file.delete()
+        self.assertEqual(File.objects.count(), 0)

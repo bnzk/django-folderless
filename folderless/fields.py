@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-# import inspect
+
+from __future__ import unicode_literals
+
 from django import forms
 # from django.conf import settings as globalsettings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
@@ -87,6 +89,7 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.fileupload.js',
             settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_file_widget.js',
             settings.FOLDERLESS_STATIC_URL + 'js/popup_handling.js',  # in popup, we call "opener.dismisss....
+            settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_widget_init.js',
             settings.FOLDERLESS_STATIC_URL + 'js/folderless_jquery_namespace.js',  # for the moment!
         )
         css = {
@@ -100,6 +103,7 @@ class FolderlessFileFormField(forms.ModelChoiceField):
     def __init__(self, rel, queryset, to_field_name, *args, **kwargs):
         self.rel = rel
         self.queryset = queryset
+        self.limit_choices_to = kwargs.pop("limit_choices_to", {})
         self.to_field_name = to_field_name
         self.max_value = None
         self.min_value = None
@@ -116,11 +120,15 @@ class FolderlessFileField(models.ForeignKey):
     default_model_class = File
 
     def __init__(self, **kwargs):
-        # we call ForeignKey.__init__ with the File model as parameter.
+        # call ForeignKey.__init__ with the File model as parameter.
         if "on_delete" not in kwargs:
             kwargs['on_delete'] = models.PROTECT
-        return super(FolderlessFileField, self).__init__(
-            self.default_model_class, **kwargs)
+        kwargs['to'] = self.default_model_class
+        return super(FolderlessFileField, self).__init__(**kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(FolderlessFileField, self).deconstruct()
+        return name, path, args, kwargs
 
     def formfield(self, **kwargs):
         # This is a fairly standard way to set up some defaults

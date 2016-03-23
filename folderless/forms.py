@@ -8,4 +8,4 @@ from folderless.models import File
 class FileAdminChangeFrom(forms.ModelForm):
     class Meta:
         model = File
-        # exclude = ("file_hash", "original_filename")
+        exclude = []  # ("file_hash", "original_filename")

@@ -1,5 +1,6 @@
 """Settings that need to be set in order to run the tests."""
 import os
+import sys
 import tempfile
 import logging
 import django.conf.global_settings as DEFAULT_SETTINGS
@@ -13,6 +14,9 @@ SITE_ID = 1
 
 APP_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), ".."))
+
+# only django 1.7 and up ?!
+sys.path.insert(0, APP_ROOT + "/../")
 
 NOSE_ARGS = ['--nocapture',
              '--nologcapture',
@@ -51,7 +55,7 @@ COVERAGE_MODULE_EXCLUDES = [
 
 EXTERNAL_APPS = (
     'django.contrib.admin',
-    'django.contrib.admindocs',
+    # 'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
@@ -69,7 +73,12 @@ INTERNAL_APPS = (
 )
 
 MIDDLEWARE_CLASSES = DEFAULT_SETTINGS.MIDDLEWARE_CLASSES + (
-    # just in case.
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # Uncomment the next line for simple clickjacking protection:
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
