@@ -13,9 +13,10 @@ form .form-row[class*=image] .related-lookup.folderless_browser {
     height: auto;
     border: transparent;
     /* padding / margin!?? */
-    margin: 0;
-    margin-right: 15px;
-    padding: 0;
+    margin: 0 !important;
+    margin-right: 15px !important;
+    padding: 0 !important;
+    font-size: inherit !important;
 }
 
 /* end hacks */
