@@ -9,7 +9,7 @@ Unfortunately there seems to be an issue with either South or syncdb so that
 defining two routers ("default" and "south") does not work.
 
 """
-from .test_settings import *  # NOQA
+from .settings_test import *  # NOQA
 
 
 DATABASES = {
@@ -19,12 +19,6 @@ DATABASES = {
     }
 }
 
-from folderless.utils import DJANGO_1_7_UP
-if not DJANGO_1_7_UP:
-    print "pre 1.7!"
-    INSTALLED_APPS = ('south', ) + INSTALLED_APPS
-else:
-    print "1.7 up"
 
 MEDIA_ROOT = os.path.join(APP_ROOT, '../test_app_media')
 FILE_UPLOAD_TEMP_DIR = None  # django handles this with /tmp, then.
