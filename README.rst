@@ -50,6 +50,12 @@ Have a look at the ``folderless/tests/test_app/models.py`` for some example.
         file = FolderlessFileField(blank=True, null=True)
 
 
+Contribute
+------------
+
+Fork and code. Either run `tox` for complete tests, or `python manage.py test --settings=folderless.tests.settings_test`
+
+
 Credits / Idea
 --------------
 
