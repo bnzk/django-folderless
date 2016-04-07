@@ -16,12 +16,12 @@ APP_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), ".."))
 
 # only django 1.7 and up ?!
-sys.path.insert(0, APP_ROOT + "/../")
+# sys.path.insert(0, APP_ROOT + "/../")
 
-NOSE_ARGS = ['--nocapture',
-             '--nologcapture',
-             '--exclude-dir=folderless/migrations',
-             '--exclude-dir=migrations', ]
+# NOSE_ARGS = ['--nocapture',
+#              '--nologcapture',
+#              '--exclude-dir=folderless/migrations',
+#              '--exclude-dir=migrations', ]
 
 DATABASES = {
     'default': {
@@ -72,7 +72,7 @@ INTERNAL_APPS = (
     'folderless.tests.test_app',
 )
 
-MIDDLEWARE_CLASSES = DEFAULT_SETTINGS.MIDDLEWARE_CLASSES + (
+MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
