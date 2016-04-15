@@ -57,7 +57,7 @@ author = u'Ben Stähli'
 #
 
 path = os.path.split(os.path.dirname(__file__))[0]
-path = os.path.split(path)[0]
+# path = os.path.split(path)[0]
 sys.path.insert(0, path)
 import folderless
 
