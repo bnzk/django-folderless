@@ -17,11 +17,10 @@ Contents
 
 .. toctree::
    :maxdepth: 2
+
    install
    usage
    demo
-
-
 
 
 Indices and tables
