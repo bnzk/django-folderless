@@ -91,8 +91,7 @@ class FileAdmin(admin.ModelAdmin):
         from django.conf.urls import patterns, url
         urls = super(FileAdmin, self).get_urls()
 
-        url_patterns = patterns(
-            '',
+        url_patterns = [
             url(
                 r'^ajax-upload/$',
                 self.admin_site.admin_view(self.ajax_upload),
@@ -103,7 +102,7 @@ class FileAdmin(admin.ModelAdmin):
                 self.admin_site.admin_view(self.ajax_info),
                 name='folderless-ajax_info'
             ),
-        )
+        ]
         url_patterns.extend(urls)
         return url_patterns
 
