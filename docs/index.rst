@@ -1,15 +1,26 @@
-.. django-folderless documentation master file, created by
-   sphinx-quickstart on Fri Apr 15 21:15:48 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+django-folderless
+*****************
 
-Welcome to django-folderless's documentation!
+.. image:: https://travis-ci.org/benzkji/django-folderless.svg
+    :target: https://travis-ci.org/benzkji/django-folderless
+
+simple media manager for django, folderless.
+
+key features:
+
+- filterable file list with multi upload possibility
+- FolderlessFileField, as a replacement for FileField, with instant upload possibility
+
+
+Contents
 =============================================
-
-Contents:
 
 .. toctree::
    :maxdepth: 2
+   install
+   usage
+   demo
+
 
 
 
