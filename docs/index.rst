@@ -18,12 +18,9 @@ Contents
 .. toctree::
    :maxdepth: 1
 
-   install
-   Installation
-   usage
-   Usage
-   demo
-   Demo
+   Installation <install>
+   Usage <usage>
+   Demo <demo>
 
 
 Indices and tables
