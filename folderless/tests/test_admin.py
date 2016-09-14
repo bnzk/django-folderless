@@ -15,6 +15,7 @@ from folderless.tests.utils import create_superuser, create_image
 
 
 class FolderlessAdminUrlsTests(TestCase):
+
     def setUp(self):
         self.superuser = create_superuser()
         self.client.login(username='admin', password='secret')
@@ -35,7 +36,7 @@ class FolderlessAdminUrlsTests(TestCase):
         # upload file, so we get an item in the list
         self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': self.image_name}
+            {'ajax_file': open(self.filename), }
         )
         response = self.client.get(reverse('admin:folderless_file_changelist'))
         self.assertEqual(response.status_code, 200)
@@ -43,7 +44,7 @@ class FolderlessAdminUrlsTests(TestCase):
     def test_file_change_view(self):
         self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': self.image_name}
+            {'ajax_file': open(self.filename), }
         )
         file_id = File.objects.all()[0].id
         response = self.client.get(reverse('admin:folderless_file_change', args=(file_id, )))
@@ -57,7 +58,7 @@ class FolderlessAdminUrlsTests(TestCase):
         self.assertEqual(File.objects.count(), 0)
         self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': self.image_name}
+            {'ajax_file': open(self.filename), }
         )
         self.assertEqual(File.objects.count(), 1)
 
@@ -79,38 +80,40 @@ class FolderlessAdminUrlsTests(TestCase):
         self.assertEqual(File.objects.count(), 0)
         self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': self.image_name}
+            {'ajax_file': open(self.filename), }
         )
         self.assertEqual(File.objects.count(), 1)
-        self.client.post(
+        response = self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': self.image_name}
+            {'ajax_file': open(self.filename), }
         )
+        self.assertEqual(response.status_code, 409)
         self.assertEqual(File.objects.count(), 1)
 
     def test_prevent_duplicate_file_content_upload(self):
         self.assertEqual(File.objects.count(), 0)
         self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': "first-%s" % self.image_name}
+            {'ajax_file': open(self.filename), 'filename': "first-%s" % self.image_name}
         )
         self.assertEqual(File.objects.count(), 1)
-        self.client.post(
+        response = self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': "second-%s" % self.image_name}
+            {'ajax_file': open(self.filename), 'filename': "second-%s" % self.image_name}
         )
+        self.assertEqual(response.status_code, 409)
         self.assertEqual(File.objects.count(), 1)
 
     def test_prevent_duplicate_json_response(self):
         self.assertEqual(File.objects.count(), 0)
         self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': "first-%s" % self.image_name}
+            {'ajax_file': open(self.filename), 'filename': "first-%s" % self.image_name}
         )
         self.assertEqual(File.objects.count(), 1)
         response = self.client.post(
             reverse('admin:folderless-ajax_upload'),
-            {'ajax-file': open(self.filename), 'filename': "second-%s" % self.image_name}
+            {'ajax_file': open(self.filename), 'filename': "second-%s" % self.image_name}
         )
         data = json.loads(response.content)
         self.assertEqual(data["success"], False)

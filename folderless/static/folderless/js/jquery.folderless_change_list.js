@@ -18,10 +18,10 @@
             var check_finished = function() {
                 if (files_uploaded + files_upload_error == files_total) {
                     if (files_uploaded == files_total) {
-                      //reload();
+                      reload();
                     } else {
                       alert(upload_errors_info.html());
-                      //reload();
+                      reload();
                     }
                 }
             }

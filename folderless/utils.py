@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import hashlib
 import os
 from distutils.version import LooseVersion
 
@@ -17,6 +18,22 @@ class UploadException(Exception):
 
 # thank you, django-filer!
 
+
+def sha1_from_file(file):
+    sha = hashlib.sha1()
+    file.seek(0)
+    while True:
+        # digest size for sha1 is 160 bytes, so a multiple should do best.
+        buf = file.read(160000)
+        if not buf:
+            break
+        sha.update(buf)
+    file_hash = sha.hexdigest()
+    # to make sure later operations can read the whole file
+    file.seek(0)
+    return file_hash
+
+
 def handle_upload(request):
     if not request.method == "POST":
         raise UploadException("AJAX request not valid: must be POST")
@@ -30,6 +47,8 @@ def handle_upload(request):
         is_raw = False
         upload = list(request.FILES.values())[0]
         filename = upload.name
+        if request.POST.get("filename", None):
+            filename = request.POST.get("filename")
     else:
         raise UploadException("AJAX request not valid: Bad Upload")
     return upload, filename, is_raw

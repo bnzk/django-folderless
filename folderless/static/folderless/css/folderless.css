@@ -1,4 +1,34 @@
 
+/* hacks djangocms-admin-style */
+.object-tools li form {
+    padding: 0;
+}
+form .form-row .related-lookup.folderless_browser img {
+    display: inline !important;
+
+}
+form .form-row .related-lookup.folderless_browser:hover,
+form .form-row .related-lookup.folderless_browser:focus {
+    background-color: transparent !important;
+}
+form .form-row .related-lookup.folderless_browser::before {
+    display: none !important;
+}
+form .form-row .related-lookup.folderless_browser {
+    float: none;
+    width: auto;
+    height: auto;
+    /* todo: target admin-style and vanilla admin accordingly! */
+    color: #0bf !important;
+    border: transparent !important;
+    vertical-align: middle !important;
+    /* padding / margin!?? */
+    margin: 0 !important;
+    margin-right: 15px !important;
+    padding: 0 !important;
+    font-size: inherit !important;
+}
+/* end hacks */
 
 body .folderless_hidden
 {
