@@ -1,4 +1,10 @@
 
+==== 0.2.6 (2016-09-14) ===
+
+- no reload in changelist fixed
+- duplicate detection with file_hash: implemented properly, adapted tests
+
+
 ==== 0.2.5 (2016-04-07) ===
 
 - support for django 1.9
