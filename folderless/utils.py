@@ -49,7 +49,6 @@ def handle_upload(request):
         filename = upload.name
         if request.POST.get("filename", None):
             filename = request.POST.get("filename")
-        print filename
     else:
         raise UploadException("AJAX request not valid: Bad Upload")
     return upload, filename, is_raw
