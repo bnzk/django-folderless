@@ -15,11 +15,13 @@ from folderless.tests.utils import create_superuser, create_image
 
 
 class FolderlessAdminUrlsTests(TestCase):
+
     def setUp(self):
         self.superuser = create_superuser()
         self.client.login(username='admin', password='secret')
         self.img = create_image()
         self.image_name = 'test_file.jpg'
+        print settings.FILE_UPLOAD_TEMP_DIR
         self.filename = os.path.join(settings.FILE_UPLOAD_TEMP_DIR,
                                      self.image_name)
         self.img.save(self.filename, 'JPEG')
@@ -82,10 +84,11 @@ class FolderlessAdminUrlsTests(TestCase):
             {'ajax-file': open(self.filename), 'filename': self.image_name}
         )
         self.assertEqual(File.objects.count(), 1)
-        self.client.post(
+        response = self.client.post(
             reverse('admin:folderless-ajax_upload'),
             {'ajax-file': open(self.filename), 'filename': self.image_name}
         )
+        self.assertEqual(response.status_code, 409)
         self.assertEqual(File.objects.count(), 1)
 
     def test_prevent_duplicate_file_content_upload(self):
@@ -95,10 +98,11 @@ class FolderlessAdminUrlsTests(TestCase):
             {'ajax-file': open(self.filename), 'filename': "first-%s" % self.image_name}
         )
         self.assertEqual(File.objects.count(), 1)
-        self.client.post(
+        response = self.client.post(
             reverse('admin:folderless-ajax_upload'),
             {'ajax-file': open(self.filename), 'filename': "second-%s" % self.image_name}
         )
+        self.assertEqual(response.status_code, 409)
         self.assertEqual(File.objects.count(), 1)
 
     def test_prevent_duplicate_json_response(self):
