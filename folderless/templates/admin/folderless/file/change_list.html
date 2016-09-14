@@ -8,9 +8,7 @@
           <span class="percent">0</span>
           (<span class="uploaded">0</span> {% trans "of" %}
           <span class="total">1</span> {% trans "uploaded" %} <span class="upload_errors folderless_hidden">, <span>
-          </span> {% trans "duplicates/errors" %}</span> <span class="error_info folderless_hidden">Duplicates / Error LOG:
-
-</span> )
+          </span> {% trans "duplicates/errors" %}</span> <span class="error_info folderless_hidden"></span> )
       </span>
       <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class="addlink folderless_uploader">
         {% trans "Upload new file" %}

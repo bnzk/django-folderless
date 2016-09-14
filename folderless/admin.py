@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
 from django.forms.models import modelform_factory
 
-from folderless.utils import handle_upload, get_valid_filename, UploadException
+from folderless.utils import handle_upload, get_valid_filename, UploadException, sha1_from_file
 from folderless.models import File
 from folderless.forms import FileAdminChangeFrom
 
@@ -127,10 +127,11 @@ class FileAdmin(admin.ModelAdmin):
         try:
             upload, filename, is_raw = handle_upload(request)
             FileForm = modelform_factory(
-                model=File, fields=('filename', 'uploader', 'file'))
+                model=File, fields=('filename', 'file_hash', 'uploader', 'file'))
             uploadform = FileForm(
                 {
                     'filename': get_valid_filename(filename),
+                    'file_hash': sha1_from_file(upload),
                     'uploader': request.user.pk
                 },
                 {'file': upload}

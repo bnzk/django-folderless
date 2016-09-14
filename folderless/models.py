@@ -16,7 +16,7 @@ from easy_thumbnails.fields import ThumbnailerField
 from easy_thumbnails.files import get_thumbnailer
 
 from conf import settings
-from folderless.utils import get_valid_filename
+from folderless.utils import get_valid_filename, sha1_from_file
 
 OTHER_TYPE = 'other'
 
@@ -78,17 +78,7 @@ class File(models.Model):
                     raise ValidationError(_("File extension must stay the same."))
 
     def generate_file_hash(self):
-        sha = hashlib.sha1()
-        self.file.seek(0)
-        while True:
-            # digest size for sha1 is 160 bytes, so a multiple should do best.
-            buf = self.file.read(160000)
-            if not buf:
-                break
-            sha.update(buf)
-        self.file_hash = sha.hexdigest()
-        # to make sure later operations can read the whole file
-        self.file.seek(0)
+        self.file_hash = sha1_from_file(self.file)
 
     @property
     def is_image(self):
