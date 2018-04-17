@@ -88,7 +88,7 @@ class FileAdmin(admin.ModelAdmin):
         super(FileAdmin, self).save_model(request, obj, form, change)
 
     def get_urls(self):
-        from django.conf.urls import patterns, url
+        from django.conf.urls import url
         urls = super(FileAdmin, self).get_urls()
 
         url_patterns = [
