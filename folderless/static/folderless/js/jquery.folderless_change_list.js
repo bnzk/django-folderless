@@ -10,6 +10,8 @@
             var files_uploaded = 0;
             var files_upload_error = 0;
             var file_input = _self.find(".folderless_fileinput");
+            var file_result_list = _self.find(".results");
+            var popup_candidates = file_result_list.find('a[data-popup-opener], a[onclick]');
 
             var reload = function() {
                 document.location.reload();
@@ -26,6 +28,10 @@
                 }
             }
 
+            var callDissmissPopup = function(win, chosen_id) {
+
+            }
+
             var init = function () {
                 // uploader instead of classic "add"
                 upload_errors_link.click(function (e) {
@@ -36,6 +42,7 @@
                     e.preventDefault();
                     file_input.click();
                 });
+                // init fileuploader
                 file_input.fileupload({
                       dataType: 'json',
                       replaceFileInput: false,
@@ -68,6 +75,14 @@
                               upload_info.find(".status").html("processing...");
                           }
                       }
+                });
+                // manage dismiss popup code here!
+                $.each(popup_candidates, function(index, item) {
+                   var $item = $(item);
+                   console.log($item.attr('data-popup-opener'));
+                   console.log($item.closest('.field-thumb_list'));
+                   // $item.unbind('click');
+                   // $item.click(callDissmissPopup);
                 });
             };
 
