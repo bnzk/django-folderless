@@ -37,7 +37,7 @@ class FileTypeFilter(admin.SimpleListFilter):
         # distinct ON doesnt work in sqlite3...soo...
         types = []
 
-        for key, definition in settings.FOLDERLESS_FILE_TYPES.iteritems():
+        for key, definition in settings.FOLDERLESS_FILE_TYPES.items():
             types.append((key, definition.get("title")))
 
         return sorted(types, key=lambda type: type[1])

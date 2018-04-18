@@ -6,6 +6,10 @@ from appconf import AppConf
 
 
 class FolderlessConf(AppConf):
+
+    class Meta:
+        proxy = True
+
     DEBUG = False
     # could have custom
     FILE_STORAGE = DefaultStorage()
@@ -60,3 +64,6 @@ class FolderlessConf(AppConf):
     IMAGE_HEIGHT_LIST = '150'
     IMAGE_WIDTH_FIELD = '200'
     IMAGE_HEIGHT_FIELD = '150'
+
+
+settings = FolderlessConf()

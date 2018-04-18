@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import TestModel, TestGallery, TestGalleryEntry
+from .models import TestModel, TestGallery, TestGalleryEntry
 
 
 class TestModelAdmin(admin.ModelAdmin):

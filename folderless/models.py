@@ -15,7 +15,7 @@ from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerField
 from easy_thumbnails.files import get_thumbnailer
 
-from django.conf import settings
+from .conf import settings
 from folderless.utils import get_valid_filename, sha1_from_file, model_get_all_related_objects
 
 OTHER_TYPE = 'other'
@@ -195,7 +195,7 @@ def folderless_file_processing(sender, **kwargs):
         else:
             instance.extension = ''
         instance.type = OTHER_TYPE
-        for type, definition in settings.FOLDERLESS_FILE_TYPES.iteritems():
+        for type, definition in settings.FOLDERLESS_FILE_TYPES.items():
             if instance.extension in definition.get("extensions"):
                 instance.type = type
         instance.generate_file_hash()
