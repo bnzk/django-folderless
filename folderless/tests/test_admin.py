@@ -5,9 +5,11 @@ import os
 import json
 
 from django.test import TestCase
-# from django.core.files import File as DjangoFile
-from django.core.urlresolvers import reverse
-
+import django
+if django.VERSION[:2] < (1, 10):
+    from django.core.urlresolvers import reverse
+else:
+    from django.urls import reverse
 from django.conf import settings
 
 from folderless.models import File

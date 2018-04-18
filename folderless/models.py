@@ -1,13 +1,16 @@
 # coding: utf-8
 
 from __future__ import unicode_literals
-import hashlib
 import os
 from django.core.exceptions import ValidationError
 from django.core.files.base import File as DjangoFile
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
-from django.core import urlresolvers
+import django
+if django.VERSION[:2] < (1, 10):
+    from django.core import urlresolvers
+else:
+    from django import urls as urlresolvers
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
@@ -41,8 +44,12 @@ class File(models.Model):
         _('File type'), max_length=12, choices=(), blank=True)
     uploader = models.ForeignKey(
         getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
-        related_name='owned_files', null=True, blank=True,
-        verbose_name=_('Uploader'))
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True,
+        related_name='owned_files',
+        verbose_name=_('Uploader'),
+    )
     created = models.DateTimeField(
         _('Created'), default=timezone.now)
     modified = models.DateTimeField(
