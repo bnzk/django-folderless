@@ -6,9 +6,6 @@ python:
 
 env:
   matrix:
-    - DJANGO=1.7.8 DB=sqlite
-    - DJANGO=1.7.8 DB=mysql
-    - DJANGO=1.7.8 DB=postgres
     - DJANGO=1.8.12 DB=sqlite
     - DJANGO=1.8.12 DB=mysql
     - DJANGO=1.8.12 DB=postgres
