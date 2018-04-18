@@ -15,7 +15,7 @@ from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerField
 from easy_thumbnails.files import get_thumbnailer
 
-from conf import settings
+from django.conf import settings
 from folderless.utils import get_valid_filename, sha1_from_file, model_get_all_related_objects
 
 OTHER_TYPE = 'other'
