@@ -57,6 +57,10 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         # related_url = reverse('admin:filer-directory_listing-last')
         related_url = reverse('admin:folderless_file_changelist')
 
+        has_svg = True
+        if django.VERSION[:2] < (1, 9):
+            has_svg = False
+
         context = {
             'folderless_static': settings.STATIC_URL + "folderless/",
             'admin_static': settings.STATIC_URL + "admin/",
@@ -68,6 +72,11 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
             'size': '%sx%s' % (settings.FOLDERLESS_IMAGE_WIDTH_FIELD, settings.FOLDERLESS_IMAGE_HEIGHT_FIELD),
             'id': css_id,
             'name': name,
+            'img_search': 'img/search.svg' if has_svg else 'img/selector-search.gif',
+            'img_unknown': 'img/icon-unknown.svg' if has_svg else 'img/icon-unknown.gif',
+            'img_upload': 'img/icon-addlink.svg' if has_svg else 'img/icon-addlink.gif',
+            'img_changelink': 'img/icon-changelink.svg' if has_svg else 'img/icon-changelink.gif',
+            'img_deletelink': 'img/icon-deletelink.svg' if has_svg else 'img/icon-deletelink.gif',
         }
         html = render_to_string('admin/folderless/file_widget.html', context)
         return mark_safe(html)

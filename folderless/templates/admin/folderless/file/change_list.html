@@ -14,7 +14,6 @@
         {% trans "Upload new file" %}
       </a>
       {% csrf_token %}
-
       <input class="folderless_fileinput folderless_hidden" type="file" name="ajax_file" data-url="{% url 'admin:folderless-ajax_upload' %}" multiple>
   </form>
 </li>
