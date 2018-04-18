@@ -7,16 +7,18 @@ from django import forms
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.contrib.admin.sites import site
 import django
-if django.VERSION[:2] < (1, 10):
-    from django.core.urlresolvers import reverse
-else:
-    from django.urls import reverse
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 from folderless.models import File
 from django.conf import settings
+
+# compat thing!
+if django.VERSION[:2] < (1, 10):
+    from django.core.urlresolvers import reverse
+else:
+    from django.urls import reverse
 
 
 # this part is mostly inspired by django-filer: https://github.com/stefanfoulis/django-filer/blob/develop/filer/fields/file.py
@@ -78,7 +80,7 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         try:
             key = self.rel.get_related_field().name
             obj = self.rel.to._default_manager.get(**{key: value})
-        except:
+        except File.DoesNotExist:
             obj = None
         return obj
 

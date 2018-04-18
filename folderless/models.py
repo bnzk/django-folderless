@@ -6,11 +6,6 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import File as DjangoFile
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
-import django
-if django.VERSION[:2] < (1, 10):
-    from django.core import urlresolvers
-else:
-    from django import urls as urlresolvers
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
@@ -20,6 +15,14 @@ from easy_thumbnails.files import get_thumbnailer
 
 from .conf import settings
 from folderless.utils import get_valid_filename, sha1_from_file, model_get_all_related_objects
+
+# compat
+import django
+if django.VERSION[:2] < (1, 10):
+    from django.core import urlresolvers
+else:
+    from django import urls as urlresolvers
+
 
 OTHER_TYPE = 'other'
 
@@ -179,11 +182,9 @@ class File(models.Model):
         """
         to make the model behave like a file field
         """
-        try:
-            r = self.file.url
-        except:
-            r = ''
-        return r
+        if self.file:
+            return self.file.url
+        return ''
 
 
 @receiver(pre_save, sender=File, dispatch_uid="folderless_file_processing")

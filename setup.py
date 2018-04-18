@@ -2,6 +2,7 @@
 from setuptools import setup, find_packages
 import os
 
+
 # not so bad: http://joebergantine.com/blog/2015/jul/17/releasing-package-pypi/
 version = __import__('folderless').__version__
 
@@ -9,6 +10,7 @@ version = __import__('folderless').__version__
 def read(fname):
     # read the contents of a text file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 
 setup(
     name="django-folderless",

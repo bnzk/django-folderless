@@ -5,15 +5,17 @@ import os
 import json
 
 from django.test import TestCase
+from django.conf import settings
+
+from folderless.models import File
+from folderless.tests.utils import create_superuser, create_image
+
+# compat
 import django
 if django.VERSION[:2] < (1, 10):
     from django.core.urlresolvers import reverse
 else:
     from django.urls import reverse
-from django.conf import settings
-
-from folderless.models import File
-from folderless.tests.utils import create_superuser, create_image
 
 
 class FolderlessAdminUrlsTests(TestCase):

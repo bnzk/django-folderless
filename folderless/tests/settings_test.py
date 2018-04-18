@@ -1,9 +1,7 @@
 """Settings that need to be set in order to run the tests."""
 import os
-import sys
 import tempfile
 import logging
-import django.conf.global_settings as DEFAULT_SETTINGS
 import django
 
 DEBUG = True
@@ -44,7 +42,7 @@ STATICFILES_DIRS = (
 )
 
 if django.VERSION[:2] < (1, 8):
-# List of callables that know how to import templates from various sources.
+    # List of callables that know how to import templates from various sources.
     TEMPLATE_LOADERS = (
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
