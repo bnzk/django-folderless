@@ -46,8 +46,8 @@ django_version = django.get_version()
 if '1.7' in django_version or '1.8' in django_version:
     django.setup()
 
-from django_coverage.coverage_runner import CoverageRunner
-from django_nose import NoseTestSuiteRunner
+from django_coverage.coverage_runner import CoverageRunner  # noqa
+from django_nose import NoseTestSuiteRunner  # noqa
 
 
 class NoseCoverageTestRunner(CoverageRunner, NoseTestSuiteRunner):

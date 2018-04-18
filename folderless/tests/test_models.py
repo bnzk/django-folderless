@@ -27,7 +27,7 @@ class FolderlessModelsTests(TestCase):
             f.delete()
 
     def _create_file(self):
-        file_obj = DjangoFile(open(self.filename), name=self.image_name)
+        file_obj = DjangoFile(open(self.filename, 'rb'), name=self.image_name)
         image = File.objects.create(uploader=self.superuser,
                                     filename=self.image_name,
                                     file=file_obj)
@@ -46,7 +46,7 @@ class FolderlessModelsTests(TestCase):
     def test_file_hash_set(self):
         file = self._create_file()
         file.save()
-        os_file = open(self.filename, "r")
+        os_file = open(self.filename, "rb")
         sha = hashlib.sha1()
         os_file.seek(0)
         while True:

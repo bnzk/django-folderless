@@ -1,10 +1,4 @@
-tox
 django-nose
-nose-exclude
-coverage
-django-coverage
-ipdb
 flake8
-fabric
-factory_boy
-mock
+# coverage
+# django-coverage

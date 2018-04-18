@@ -6,14 +6,19 @@ from django import forms
 # from django.conf import settings as globalsettings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.contrib.admin.sites import site
-# from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse
+import django
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 from folderless.models import File
 from django.conf import settings
+
+# compat thing!
+if django.VERSION[:2] < (1, 10):
+    from django.core.urlresolvers import reverse
+else:
+    from django.urls import reverse
 
 
 # this part is mostly inspired by django-filer: https://github.com/stefanfoulis/django-filer/blob/develop/filer/fields/file.py
@@ -75,7 +80,7 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         try:
             key = self.rel.get_related_field().name
             obj = self.rel.to._default_manager.get(**{key: value})
-        except:
+        except File.DoesNotExist:
             obj = None
         return obj
 
@@ -136,7 +141,7 @@ class FolderlessFileField(models.ForeignKey):
         # while letting the caller override them.
         defaults = {
             'form_class': self.default_form_class,
-            'rel': self.rel,
+            'rel': self.rel if hasattr(self, 'rel') else self.remote_field.model,
         }
         defaults.update(kwargs)
         return super(FolderlessFileField, self).formfield(**defaults)

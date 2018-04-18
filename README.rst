@@ -1,8 +1,8 @@
 django-folderless
 *****************
 
-.. image:: https://travis-ci.org/benzkji/django-folderless.svg
-    :target: https://travis-ci.org/benzkji/django-folderless
+.. image:: https://travis-ci.org/bnzk/django-folderless.svg
+    :target: https://travis-ci.org/bnzk/django-folderless
 
 simple media manager for django, folderless.
 

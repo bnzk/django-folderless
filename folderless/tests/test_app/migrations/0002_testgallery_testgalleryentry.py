@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('description', models.CharField(default=b'', max_length=255, null=True, verbose_name=b'description', blank=True)),
-                ('gallery', models.ForeignKey(to='test_app.TestGallery')),
+                ('gallery', models.ForeignKey(on_delete=models.CASCADE, to='test_app.TestGallery')),
                 ('image', folderless.fields.FolderlessFileField(on_delete=django.db.models.deletion.PROTECT, default=None, blank=True, to='folderless.File', null=True, verbose_name=b'File')),
             ],
             options={

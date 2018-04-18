@@ -1,4 +1,14 @@
 
+==== ongoing ===
+
+
+==== 0.2.7 (2018-04-17) ===
+
+- support up to django 2.0
+- django 1.7 support dropped
+- no new features
+
+
 ==== 0.2.6 (2016-09-14) ===
 
 - no reload in changelist fixed

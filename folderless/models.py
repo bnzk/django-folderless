@@ -1,13 +1,11 @@
 # coding: utf-8
 
 from __future__ import unicode_literals
-import hashlib
 import os
 from django.core.exceptions import ValidationError
 from django.core.files.base import File as DjangoFile
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
-from django.core import urlresolvers
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
@@ -15,8 +13,16 @@ from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerField
 from easy_thumbnails.files import get_thumbnailer
 
-from conf import settings
-from folderless.utils import get_valid_filename, sha1_from_file
+from .conf import settings
+from folderless.utils import get_valid_filename, sha1_from_file, model_get_all_related_objects
+
+# compat
+import django
+if django.VERSION[:2] < (1, 10):
+    from django.core import urlresolvers
+else:
+    from django import urls as urlresolvers
+
 
 OTHER_TYPE = 'other'
 
@@ -41,8 +47,12 @@ class File(models.Model):
         _('File type'), max_length=12, choices=(), blank=True)
     uploader = models.ForeignKey(
         getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
-        related_name='owned_files', null=True, blank=True,
-        verbose_name=_('Uploader'))
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True,
+        related_name='owned_files',
+        verbose_name=_('Uploader'),
+    )
     created = models.DateTimeField(
         _('Created'), default=timezone.now)
     modified = models.DateTimeField(
@@ -136,7 +146,8 @@ class File(models.Model):
     def references_list(self):
         links = [
             rel.get_accessor_name()
-            for rel in File._meta.get_all_related_objects()]
+            for rel in model_get_all_related_objects(File)
+        ]
         total = 0
         for link in links:
             total += getattr(self, link).all().count()
@@ -171,11 +182,9 @@ class File(models.Model):
         """
         to make the model behave like a file field
         """
-        try:
-            r = self.file.url
-        except:
-            r = ''
-        return r
+        if self.file:
+            return self.file.url
+        return ''
 
 
 @receiver(pre_save, sender=File, dispatch_uid="folderless_file_processing")
@@ -194,7 +203,7 @@ def folderless_file_processing(sender, **kwargs):
         else:
             instance.extension = ''
         instance.type = OTHER_TYPE
-        for type, definition in settings.FOLDERLESS_FILE_TYPES.iteritems():
+        for type, definition in settings.FOLDERLESS_FILE_TYPES.items():
             if instance.extension in definition.get("extensions"):
                 instance.type = type
         instance.generate_file_hash()

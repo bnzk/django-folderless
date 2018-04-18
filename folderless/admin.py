@@ -37,7 +37,7 @@ class FileTypeFilter(admin.SimpleListFilter):
         # distinct ON doesnt work in sqlite3...soo...
         types = []
 
-        for key, definition in settings.FOLDERLESS_FILE_TYPES.iteritems():
+        for key, definition in settings.FOLDERLESS_FILE_TYPES.items():
             types.append((key, definition.get("title")))
 
         return sorted(types, key=lambda type: type[1])
@@ -88,7 +88,7 @@ class FileAdmin(admin.ModelAdmin):
         super(FileAdmin, self).save_model(request, obj, form, change)
 
     def get_urls(self):
-        from django.conf.urls import patterns, url
+        from django.conf.urls import url
         urls = super(FileAdmin, self).get_urls()
 
         url_patterns = [
@@ -159,5 +159,6 @@ class FileAdmin(admin.ModelAdmin):
                     'message': str(e)
                 }),
                 **response_params)
+
 
 admin.site.register(File, FileAdmin)

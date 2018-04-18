@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='Modified')),
                 ('extension', models.CharField(default=b'', max_length=255, verbose_name='Extension', blank=True)),
                 ('file_hash', models.CharField(help_text='For preventing duplicates', unique=True, max_length=40, verbose_name='Checksum')),
-                ('uploader', models.ForeignKey(related_name='owned_files', verbose_name='Uploader', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('uploader', models.ForeignKey(related_name='owned_files', verbose_name='Uploader', blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)),
             ],
             options={
                 'verbose_name': 'File',
