@@ -1,5 +1,4 @@
-from django.conf import settings
-# from django.core.exceptions import ImproperlyConfigured
+from django.conf import settings as django_settings
 from django.core.files.storage import DefaultStorage
 from django.utils.translation import ugettext_lazy as _
 
@@ -17,7 +16,7 @@ class FolderlessConf(AppConf):
     # base thumbnails path
     THUMBNAIL_TO = 'thumbs'
     # convenience
-    STATIC_URL = settings.STATIC_URL + "folderless/"
+    STATIC_URL = django_settings.STATIC_URL + "folderless/"
     # Image?
     FILE_TYPES = {
         'image': {

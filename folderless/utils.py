@@ -20,7 +20,7 @@ def model_get_all_related_objects(model):
     """
     https://docs.djangoproject.com/en/2.0/ref/models/meta/
     """
-    if getattr(model._meta, 'get_all_related_objects'):
+    if getattr(model._meta, 'get_all_related_objects', None):
         return model._meta.get_all_related_objects()
     else:
         return [

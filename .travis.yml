@@ -15,6 +15,12 @@ env:
     - DJANGO=1.9.5 DB=sqlite
     - DJANGO=1.9.5 DB=mysql
     - DJANGO=1.9.5 DB=postgres
+    - DJANGO=1.10 DB=sqlite
+    - DJANGO=1.10 DB=mysql
+    - DJANGO=1.10 DB=postgres
+    - DJANGO=1.11 DB=sqlite
+    - DJANGO=1.11 DB=mysql
+    - DJANGO=1.11 DB=postgres
 
 before_script:
   - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'DROP DATABASE IF EXISTS folderless_tests;' -U postgres; fi"

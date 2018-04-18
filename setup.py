@@ -22,8 +22,7 @@ setup(
     author_email='bnzk@bnzk.ch',
     packages=find_packages(),
     install_requires=(
-        # 'Django>=1.3,<1.5',  # no need to limit while in development
-        'Django>=1.7',
+        'Django>=1.8',
         'easy-thumbnails>=2.0',
         'django-appconf>=0.6'
     ),
