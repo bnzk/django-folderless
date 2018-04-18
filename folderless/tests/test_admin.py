@@ -69,13 +69,15 @@ class FolderlessAdminUrlsTests(TestCase):
         response = self.client.post(
             reverse('admin:folderless-ajax_upload'), {}
         )
-        data = json.loads(response.content)
+        # decode, for python 3.5!?
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(data["success"], False)
 
     def test_non_post_upload_request(self):
         self.assertEqual(File.objects.count(), 0)
         response = self.client.get(reverse('admin:folderless-ajax_upload'))
-        data = json.loads(response.content)
+        # decode, for python 3.5!?
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(data["success"], False)
 
     def test_prevent_duplicate_file_name_upload(self):
@@ -117,6 +119,7 @@ class FolderlessAdminUrlsTests(TestCase):
             reverse('admin:folderless-ajax_upload'),
             {'ajax_file': open(self.filename, 'rb'), 'filename': "second-{}".format(self.image_name)}
         )
-        data = json.loads(response.content)
+        # decode, for python 3.5!?
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(data["success"], False)
         self.assertGreaterEqual(len(data["errors"]), 1)
