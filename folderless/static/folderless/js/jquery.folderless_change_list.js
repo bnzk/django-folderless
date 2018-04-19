@@ -10,6 +10,8 @@
             var files_uploaded = 0;
             var files_upload_error = 0;
             var file_input = _self.find(".folderless_fileinput");
+            var file_result_list = _self.find(".results");
+            var popup_candidates = file_result_list.find('a[data-popup-opener]');
 
             var reload = function() {
                 document.location.reload();
@@ -26,6 +28,12 @@
                 }
             }
 
+            var callDissmissPopup = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                opener.dismissRelatedFolderlessLookupPopup(window, $(this).attr('data-popup-opener'));
+            }
+
             var init = function () {
                 // uploader instead of classic "add"
                 upload_errors_link.click(function (e) {
@@ -36,6 +44,7 @@
                     e.preventDefault();
                     file_input.click();
                 });
+                // init fileuploader
                 file_input.fileupload({
                       dataType: 'json',
                       replaceFileInput: false,
@@ -68,6 +77,17 @@
                               upload_info.find(".status").html("processing...");
                           }
                       }
+                });
+                // manage dismiss popup code here!
+                $.each(popup_candidates, function(index, item) {
+                    var $item = $(item);
+                    var id = $item.attr('data-popup-opener');
+                    var $img_link = $item.closest('tr').find('.field-thumb_list a');
+                    $img_link.attr('data-popup-opener', id);
+                    $item.unbind('click');
+                    $item.click(callDissmissPopup);
+                    // console.log($._data($item[0], "events"));
+                    $img_link.click(callDissmissPopup);
                 });
             };
 

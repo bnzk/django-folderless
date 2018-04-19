@@ -96,7 +96,6 @@
                 thumb.attr("alt", unknown_img.attr("alt"));
                 file_link.removeAttr("href");
                 label.html("");
-
                 remove_button.hide(0);
                 edit_button.hide(0);
             }

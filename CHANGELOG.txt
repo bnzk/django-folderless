@@ -2,6 +2,11 @@
 ==== ongoing ===
 
 
+==== 0.2.8 (2018-04-19) ===
+
+- fixed dismiss popup bug for django 1.10+
+
+
 ==== 0.2.7 (2018-04-17) ===
 
 - support up to django 2.0
