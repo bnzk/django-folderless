@@ -3,6 +3,7 @@ language: python
 python:
   - "2.7"
   - "3.5"
+  - "3.6"
 
 env:
   matrix:
@@ -21,6 +22,9 @@ env:
     - DJANGO=2.0 DB=sqlite
     - DJANGO=2.0 DB=mysql
     - DJANGO=2.0 DB=postgres
+    - DJANGO=2.1 DB=sqlite
+    - DJANGO=2.1 DB=mysql
+    - DJANGO=2.1 DB=postgres
 
 matrix:
   allow_failures:
@@ -31,6 +35,13 @@ matrix:
       env: DJANGO=2.0 DB=mysql
     - python: '2.7'
       env: DJANGO=2.0 DB=postgres
+    - python: '2.7'
+      env: DJANGO=2.1 DB=sqlite
+    - python: '2.7'
+      env: DJANGO=2.1 DB=mysql
+    - python: '2.7'
+      env: DJANGO=2.1 DB=postgres
+
 
 before_script:
   - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'DROP DATABASE IF EXISTS folderless_tests;' -U postgres; fi"
