@@ -91,8 +91,10 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         except (ValueError, TypeError):
             value = 0
         try:
-            key = self.rel.get_related_field().name
-            obj = self.rel.to._default_manager.get(**{key: value})
+            # key = self.rel.get_related_field().name
+            # obj = self.rel.to._default_manager.get(**{key: value})
+            # we know it's a File!
+            obj = File.objects.get(pk=value)
         except File.DoesNotExist:
             obj = None
         return obj
@@ -153,16 +155,16 @@ class FolderlessFileField(models.ForeignKey):
         # while letting the caller override them.
         defaults = {
             'form_class': self.default_form_class,
-            'rel': self.rel if hasattr(self, 'rel') else self.remote_field.model,
+            'rel': self.rel if hasattr(self, 'rel') else self.remote_field,
         }
         defaults.update(kwargs)
         return super(FolderlessFileField, self).formfield(**defaults)
 
-    def south_field_triple(self):
-        "Returns a suitable description of this field for South."
-        # We'll just introspect ourselves, since we inherit.
-        from south.modelsinspector import introspector
-        field_class = "django.db.models.fields.related.ForeignKey"
-        args, kwargs = introspector(self)
-        # That's our definition!
-        return (field_class, args, kwargs)
+    # def south_field_triple(self):
+    #     "Returns a suitable description of this field for South."
+    #     # We'll just introspect ourselves, since we inherit.
+    #     from south.modelsinspector import introspector
+    #     field_class = "django.db.models.fields.related.ForeignKey"
+    #     args, kwargs = introspector(self)
+    #     # That's our definition!
+    #     return (field_class, args, kwargs)
