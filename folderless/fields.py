@@ -88,7 +88,7 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
     def obj_for_value(self, value):
         try:
             value = int(value)
-        except ValueError:
+        except (ValueError, TypeError):
             value = 0
         try:
             key = self.rel.get_related_field().name
