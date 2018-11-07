@@ -87,13 +87,16 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
 
     def obj_for_value(self, value):
         try:
+            value = int(value)
+        except ValueError:
+            value = 0
+        try:
             key = self.rel.get_related_field().name
             obj = self.rel.to._default_manager.get(**{key: value})
         except File.DoesNotExist:
             obj = None
         return obj
 
-    # TODO: dont know if it is a good idea to load jquery!? if every field does this, where do we end then?
     class Media:
         js = (
             # 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',

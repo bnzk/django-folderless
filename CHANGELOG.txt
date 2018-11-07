@@ -1,6 +1,14 @@
 
 ==== ongoing ===
 
+- dndrop uploader
+
+
+==== 0.2.9 (2018-11-07) ===
+
+- fixes minor "obj_for_value" error in FolderlessFileWIdget
+- no more rolling our own jquery!
+
 
 ==== 0.2.8 (2018-04-19) ===
 
