@@ -6,6 +6,7 @@
 
 ==== 0.2.9 (2018-11-07) ===
 
+- django 2.1 support
 - fixes minor "obj_for_value" error in FolderlessFileWIdget
 - no more rolling our own jquery!
 
