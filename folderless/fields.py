@@ -102,7 +102,7 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
     class Media:
         js = (
             # 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery-1.9.1.min.js',
+            # settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery-1.9.1.min.js',
             settings.FOLDERLESS_STATIC_URL + 'js/jquery_pre_init.js',  # for the moment!
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.ui.widget.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.iframe-transport.js',
