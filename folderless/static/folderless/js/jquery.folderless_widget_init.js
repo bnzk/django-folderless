@@ -14,7 +14,7 @@
 
         function add_row_handler(event) {
             // depends on html structure, bad. but...
-            inline = folderless_jquery(event.currentTarget).parent();
+            inline = $(event.currentTarget).parent();
             // f*** inlines ;
             to_enhance = inline.find(".last-related:not(.empty-form ) [data-widget=folderless_file]:not(.folderless_widget_initialized)");
             to_enhance.folderless_file_widget();
@@ -22,8 +22,8 @@
 
         // add to all but empty-form (these are empty inlines that get duplicated)
         // console.log(folderless_jquery("div[data-widget=folderless_file]").not("[class*=__prefix__]"));
-        folderless_jquery("div[data-widget=folderless_file]").not("[class*=__prefix__]").folderless_file_widget();
+        $("div[data-widget=folderless_file]").not("[class*=__prefix__]").folderless_file_widget();
 
     });
 
-})(django.jQuery);
+})(folderless.jQuery);

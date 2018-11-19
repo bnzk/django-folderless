@@ -9,6 +9,6 @@ function dismissRelatedFolderlessLookupPopup(win, chosenId) {
         elem.value = chosenId;
     }
     // the reason for this custom thing!
-    folderless_jquery(elem).trigger("change");
+    folderless.jQuery(elem).trigger("change");
     win.close();
 }

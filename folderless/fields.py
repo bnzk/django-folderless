@@ -103,13 +103,14 @@ class FolderlessFileWidget(ForeignKeyRawIdWidget):
         js = (
             # 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery-1.9.1.min.js',
+            settings.FOLDERLESS_STATIC_URL + 'js/jquery_pre_init.js',  # for the moment!
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.ui.widget.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.iframe-transport.js',
             settings.FOLDERLESS_STATIC_URL + 'js/vendor/jquery.fileupload.js',
             settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_file_widget.js',
             settings.FOLDERLESS_STATIC_URL + 'js/popup_handling.js',  # in popup, we call "opener.dismisss....
             settings.FOLDERLESS_STATIC_URL + 'js/jquery.folderless_widget_init.js',
-            settings.FOLDERLESS_STATIC_URL + 'js/folderless_jquery_namespace.js',  # for the moment!
+            settings.FOLDERLESS_STATIC_URL + 'js/jquery_post_init.js',  # for the moment!
         )
         css = {
             'screen': (settings.FOLDERLESS_STATIC_URL + "css/folderless.css", )

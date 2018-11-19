@@ -21,4 +21,5 @@ DATABASES = {
 
 
 MEDIA_ROOT = os.path.join(APP_ROOT, '../test_app_media')  # noqa
-FILE_UPLOAD_TEMP_DIR = None  # django handles this with /tmp, then.
+# FILE_UPLOAD_TEMP_DIR = None  # django handles this with /tmp, then.
+FILE_UPLOAD_TEMP_DIR = '/tmp'  # no more?
