@@ -171,12 +171,18 @@ class File(models.Model):
 
     def _thumb_url(self, width, height):
         if self.file:
+
             thumbnailer = get_thumbnailer(self.file)
             thumbnail_options = {
                 'size': (width, height)
             }
-            thumb = thumbnailer.get_thumbnail(thumbnail_options)
-            return thumb.url
+            try:
+                # catch the value error when trying to resize a 600x1 pixel image
+                # to 150x150 > PIL wants to do it 150x0, and then complains...
+                thumb = thumbnailer.get_thumbnail(thumbnail_options)
+                return thumb.url
+            except ValueError:
+                pass
         return ''
 
     @property
