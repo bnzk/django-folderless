@@ -170,12 +170,14 @@ class File(models.Model):
         }
 
     def _thumb_url(self, width, height):
-        thumbnailer = get_thumbnailer(self.file)
-        thumbnail_options = {
-            'size': (width, height)
-        }
-        thumb = thumbnailer.get_thumbnail(thumbnail_options)
-        return thumb.url
+        if self.file:
+            thumbnailer = get_thumbnailer(self.file)
+            thumbnail_options = {
+                'size': (width, height)
+            }
+            thumb = thumbnailer.get_thumbnail(thumbnail_options)
+            return thumb.url
+        return ''
 
     @property
     def url(self):
