@@ -8,6 +8,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerField
@@ -135,8 +136,8 @@ class File(models.Model):
     def thumb_list(self):
         if self.is_image:
             url = self.thumb_list_url
-            return '<a href="%s" target="_blank"><img src="%s" alt="%s"></a>' \
-                   % (self.file.url, url, self.label)
+            return mark_safe('<a href="%s" target="_blank"><img src="%s" alt="%s"></a>' \
+                   % (self.file.url, url, self.label))
         else:
             return
 
