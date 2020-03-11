@@ -25,7 +25,7 @@
     {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
 
     <script type="text/javascript">
-      folderless.jQuery(document).ready(function($) {
+      django.jQuery(document).ready(function($) {
           // you can now use jquery / javascript here...
           $('#content-main').folderless_change_list();
       });

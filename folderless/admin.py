@@ -67,14 +67,12 @@ class FileAdmin(admin.ModelAdmin):
         vendor_path = settings.FOLDERLESS_STATIC_URL + 'js/vendor/'
         js_path = settings.FOLDERLESS_STATIC_URL + 'js/'
         js = (
-            # 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            # vendor_path + 'jquery-1.9.1.min.js',
-            js_path + 'jquery_pre_init.js',
             vendor_path + 'jquery.ui.widget.js',
             vendor_path + 'jquery.iframe-transport.js',
             vendor_path + 'jquery.fileupload.js',
+            'admin/js/jquery.init.js',
             js_path + 'jquery.folderless_change_list.js',
-            js_path + 'jquery_post_init.js',
+            # js_path + 'jquery_post_init.js',
         )
         css = {
             'screen': (
