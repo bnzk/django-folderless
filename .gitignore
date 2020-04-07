@@ -10,3 +10,4 @@ folderless/tests/coverage
 /dist/
 _build
 /build/
+/htmlcov/

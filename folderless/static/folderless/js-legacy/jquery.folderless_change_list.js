@@ -95,4 +95,4 @@
 
         });
     }
-})(django.jQuery);
+})(folderless.jQuery);

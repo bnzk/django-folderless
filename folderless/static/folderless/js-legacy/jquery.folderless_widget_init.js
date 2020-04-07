@@ -26,4 +26,4 @@
 
     });
 
-})(django.jQuery);
+})(folderless.jQuery);

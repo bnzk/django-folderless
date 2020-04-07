@@ -9,7 +9,7 @@ Unfortunately there seems to be an issue with either South or syncdb so that
 defining two routers ("default" and "south") does not work.
 
 """
-from .settings_test import *  # NOQA
+from .settings import *  # NOQA
 
 
 DATABASES = {
@@ -21,4 +21,5 @@ DATABASES = {
 
 
 MEDIA_ROOT = os.path.join(APP_ROOT, '../test_app_media')  # noqa
-FILE_UPLOAD_TEMP_DIR = None  # django handles this with /tmp, then.
+# FILE_UPLOAD_TEMP_DIR = None  # django handles this with /tmp, then.
+FILE_UPLOAD_TEMP_DIR = '/tmp'  # no more?

@@ -1,13 +1,11 @@
 # coding: utf-8
-
-from __future__ import unicode_literals
 import os
 from django.core.exceptions import ValidationError
 from django.core.files.base import File as DjangoFile
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerField
@@ -27,7 +25,6 @@ else:
 OTHER_TYPE = 'other'
 
 
-@python_2_unicode_compatible
 class File(models.Model):
     file = ThumbnailerField(
         _('File'), upload_to=settings.FOLDERLESS_UPLOAD_TO,
@@ -135,8 +132,8 @@ class File(models.Model):
     def thumb_list(self):
         if self.is_image:
             url = self.thumb_list_url
-            return '<a href="%s" target="_blank"><img src="%s" alt="%s"></a>' \
-                   % (self.file.url, url, self.label)
+            return mark_safe('<a href="%s" target="_blank"><img src="%s" alt="%s"></a>'
+                   % (self.file.url, url, self.label))
         else:
             return
 
@@ -170,12 +167,20 @@ class File(models.Model):
         }
 
     def _thumb_url(self, width, height):
-        thumbnailer = get_thumbnailer(self.file)
-        thumbnail_options = {
-            'size': (width, height)
-        }
-        thumb = thumbnailer.get_thumbnail(thumbnail_options)
-        return thumb.url
+        if self.file:
+
+            thumbnailer = get_thumbnailer(self.file)
+            thumbnail_options = {
+                'size': (width, height)
+            }
+            try:
+                # catch the value error when trying to resize a 600x1 pixel image
+                # to 150x150 > PIL wants to do it 150x0, and then complains...
+                thumb = thumbnailer.get_thumbnail(thumbnail_options)
+                return thumb.url
+            except ValueError:
+                pass
+        return ''
 
     @property
     def url(self):
