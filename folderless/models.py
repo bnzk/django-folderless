@@ -1,10 +1,7 @@
 # coding: utf-8
-
-from __future__ import unicode_literals
 import os
 from django.core.exceptions import ValidationError
 from django.core.files.base import File as DjangoFile
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
@@ -28,7 +25,6 @@ else:
 OTHER_TYPE = 'other'
 
 
-@python_2_unicode_compatible
 class File(models.Model):
     file = ThumbnailerField(
         _('File'), upload_to=settings.FOLDERLESS_UPLOAD_TO,
