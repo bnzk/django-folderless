@@ -1,12 +1,12 @@
 
 
-git flow release start 0.2.
+git flow release start 0.3.
 version bump in folderless/__init__.py
-git flow release finish 0.2.
+git flow release finish 0.3.
 git push --all; git push --tags
 git push upstream --all; git push upstream --tags
 python setup.py sdist && python setup.py bdist_wheel --universal
 twine upload dist/* -r pypitest
 twine upload dist/*
 
-make version a 0.2.7DEV
+make version a 0.3.XXXXDEV
