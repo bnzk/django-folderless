@@ -136,7 +136,7 @@ class File(models.Model):
     def thumb_list(self):
         if self.is_image:
             url = self.thumb_list_url
-            return mark_safe('<a href="%s" target="_blank"><img src="%s" alt="%s"></a>' \
+            return mark_safe('<a href="%s" target="_blank"><img src="%s" alt="%s"></a>'
                    % (self.file.url, url, self.label))
         else:
             return
