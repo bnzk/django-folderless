@@ -1,10 +1,9 @@
-from __future__ import unicode_literals
 import json
 
 from django.contrib import admin
 from django.shortcuts import get_object_or_404
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.http import HttpResponse
 from django.forms.models import modelform_factory
 

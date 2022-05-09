@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
 from django import forms
-# from django.conf import settings as globalsettings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.contrib.admin.sites import site
 import django
