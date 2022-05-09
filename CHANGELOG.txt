@@ -4,6 +4,11 @@
 - dndrop uploader
 
 
+==== 0.3.1 (2022-05-09) ===
+
+- real django 3.2  LTS support
+
+
 ==== 0.3.0 (2020-04-07) ===
 
 - theoretically django 3.0 support (in tests...)

@@ -1,7 +1,8 @@
 
 
 function dismissRelatedFolderlessLookupPopup(win, chosenId) {
-    var name = windowname_to_id(win.name);
+    // var name = windowname_to_id(win.name);
+    var name = win.name;
     var elem = document.getElementById(name);
     if (elem.className.indexOf('vManyToManyRawIdAdminField') != -1 && elem.value) {
         elem.value += ',' + chosenId;
