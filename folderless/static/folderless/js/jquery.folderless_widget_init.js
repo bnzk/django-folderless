@@ -4,7 +4,7 @@
     $(function() {
 
         $('.inline-group').each(function(index, inline) {
-            if ($(inline).find("fieldset .folderless_raw_id_field").size()) {
+            if ($(inline).find("fieldset .folderless_raw_id_field").length) {
                 // found inline with folderless fields
                 //console.log("found inline with folderless fields!");
                 //console.log($(inline).attr("id"));

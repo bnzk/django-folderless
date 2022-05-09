@@ -4,6 +4,11 @@
 - dndrop uploader
 
 
+==== 0.4.1 (2022-05-09) ====
+
+- fix another jquery/compat error
+
+
 ==== 0.4.0 (2022-05-09) ====
 
 - real django 3.2  LTS support
