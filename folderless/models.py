@@ -1,4 +1,3 @@
-# coding: utf-8
 import os
 from django.core.exceptions import ValidationError
 from django.core.files.base import File as DjangoFile
@@ -6,7 +5,7 @@ from django.db import models
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerField
 from easy_thumbnails.files import get_thumbnailer
