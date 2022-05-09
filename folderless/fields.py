@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
 from django import forms
-# from django.conf import settings as globalsettings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.contrib.admin.sites import site
 import django
@@ -129,6 +124,7 @@ class FolderlessFileFormField(forms.ModelChoiceField):
         self.max_value = None
         self.min_value = None
         kwargs.pop('widget', None)
+        kwargs.pop('blank', None)
         forms.Field.__init__(self, widget=self.widget(rel, site), *args, **kwargs)
 
     def widget_attrs(self, widget):

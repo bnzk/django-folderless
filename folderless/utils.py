@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import hashlib
 import os
 from distutils.version import LooseVersion
