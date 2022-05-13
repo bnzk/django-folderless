@@ -1,11 +1,3 @@
-jquery: MIT
-jquery-ui: MIT
-jquery.cookie.js: MIT
-jquery.fileupload.js: ?
-
-
-django-folderless:
-
 The MIT License (MIT)
 
 Copyright (c) [year] [fullname]
