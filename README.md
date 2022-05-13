@@ -1,9 +1,9 @@
 # django-folderless
 
 [![CI](https://img.shields.io/github/workflow/status/bnzk/django-folderless/CI.svg?style=flat-square&logo=github "CI")](https://github.com/bnzk/django-folderless/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/pypi/v/django-folderless$.svg?style=flat-square "Version")](https://pypi.python.org/pypi/django-folderless$/)
-[![Licence](https://img.shields.io/github/license/bnzk/django-folderless$.svg?style=flat-square "Licence")](https://pypi.python.org/pypi/django-folderless$/)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/django-folderless$?style=flat-square "PyPi Downloads")](https://pypistats.org/packages/django-folderless$)
+[![Version](https://img.shields.io/pypi/v/django-folderless.svg?style=flat-square "Version")](https://pypi.python.org/pypi/django-folderless$/)
+[![Licence](https://img.shields.io/github/license/bnzk/django-folderless.svg?style=flat-square "Licence")](https://pypi.python.org/pypi/django-folderless/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/django-folderless?style=flat-square "PyPi Downloads")](https://pypistats.org/packages/django-folderless)
 
 
 simple media manager for django, folderless.
