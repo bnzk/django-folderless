@@ -4,6 +4,12 @@
 - dndrop uploader
 
 
+==== 0.4.2 (2022-08-08) ====
+
+- more error prone thumbnail generation (handling NoSourceGeneratorFound, InvalidImageFormat, FileNotFound)
+- fix defaultAutoField warnings for Django 3.2 and up
+
+
 ==== 0.4.1 (2022-05-09) ====
 
 - fix another jquery/compat error
