@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 # version string following pep-0396 and pep-0386, maybe
-__version__ = '0.4.1'  # pragma: nocover
+__version__ = '0.4.2'  # pragma: nocover

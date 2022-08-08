@@ -7,6 +7,8 @@ from django.dispatch import receiver
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from easy_thumbnails.engine import NoSourceGenerator
+from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.fields import ThumbnailerField
 from easy_thumbnails.files import get_thumbnailer
 
@@ -167,17 +169,16 @@ class File(models.Model):
 
     def _thumb_url(self, width, height):
         if self.file:
-
             thumbnailer = get_thumbnailer(self.file)
             thumbnail_options = {
                 'size': (width, height)
             }
             try:
                 # catch the value error when trying to resize a 600x1 pixel image
-                # to 150x150 > PIL wants to do it 150x0, and then complains...
+                # to 150x150 > PIL wants to do it 150x0, and then complains...ValueError
                 thumb = thumbnailer.get_thumbnail(thumbnail_options)
                 return thumb.url
-            except ValueError:
+            except (InvalidImageFormatError, NoSourceGenerator, FileNotFoundError, ValueError):
                 pass
         return ''
 

@@ -1,5 +1,6 @@
-include LICENSES
-include README.rst
+include LICENSE
+include CHANGELOG.txt
+include README.md
 global-exclude *.orig *.pyc *.log *.swp
 
 recursive-include folderless/templates *
