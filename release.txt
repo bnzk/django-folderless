@@ -5,6 +5,8 @@ version bump in folderless/__init__.py
 git flow release finish 0.3.
 git push --all; git push --tags
 git push upstream --all; git push upstream --tags
+
+# no more, done in CI
 python setup.py sdist && python setup.py bdist_wheel --universal
 twine upload dist/* -r pypitest
 twine upload dist/*
