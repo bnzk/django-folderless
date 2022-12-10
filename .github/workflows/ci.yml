@@ -3,6 +3,7 @@ name: CI
 on: [push, pull_request, ]
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -38,7 +39,6 @@ jobs:
         # Run tox using the version of Python in `PATH`
         # run: tox -e py${{ matrix.python }}-${{ matrix.django }}
         run: tox -e py39-django32-coverage
-
 
   lint:
     runs-on: ubuntu-latest
