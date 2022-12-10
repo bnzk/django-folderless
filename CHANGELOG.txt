@@ -4,6 +4,11 @@
 - dndrop uploader
 
 
+==== 0.5.0 (2022-12-10) ====
+
+- add a migration for file.type under Django 3+
+
+
 ==== 0.4.2 (2022-08-08) ====
 
 - more error prone thumbnail generation (handling NoSourceGeneratorFound, InvalidImageFormat, FileNotFound)

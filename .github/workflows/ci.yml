@@ -3,11 +3,12 @@ name: CI
 on: [push, pull_request, ]
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.7, 3.8, 3.9, 3.10]
+        python: [3.7, 3.8, 3.9, '3.10']
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python ${{ matrix.python }}
@@ -38,7 +39,6 @@ jobs:
         # Run tox using the version of Python in `PATH`
         # run: tox -e py${{ matrix.python }}-${{ matrix.django }}
         run: tox -e py39-django32-coverage
-
 
   lint:
     runs-on: ubuntu-latest
